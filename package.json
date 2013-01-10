@@ -15,6 +15,9 @@
         "test": ".test/",
         "lib": ".lib/"
     },
+    "scripts": {
+        "test": "node ./test/run.js"
+    },
     "description": "SendWithUs.com node client",
     "author": "Send With Us <us@sendwithus.com>",
     "engine": "node >= 0.4.1"

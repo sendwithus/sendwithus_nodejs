@@ -11,5 +11,6 @@ var options = {
 
 var api = new API(key, options);
 
+console.log('> testing send ...');
 api.send('new_user_welcome', 'test@me.com', {'name': 'Jimmy the snake'});
 
