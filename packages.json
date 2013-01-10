@@ -1,0 +1,19 @@
+{
+    "name": "sendwithus",
+    "version": "0.1.0",
+    "keywords": ["sendwithus", "send", "with", "us", "email", "transactional"],
+    "homepage": "https://github.com/sendwithus/sendwithus_node",
+    "licenses": [{"type": "MIT"}],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sendwithus/sendwithus_node"
+    },
+    "bugs": {
+        "url": "https://github.com/sendwithus/sendwithus_node/issues",
+        "email": "us@sendwithus.com"
+    },
+    "description": "SendWithUs.com node client",
+    "author": "Send With Us <us@sendwithus.com>",
+    "main": "sendwithus",
+    "engine": "node >= 0.4.1"
+}
