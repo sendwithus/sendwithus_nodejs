@@ -12,6 +12,7 @@
         "url": "https://github.com/sendwithus/sendwithus_node/issues"
     },
     "directories": {
+        "test": ".test/",
         "lib": ".lib/"
     },
     "description": "SendWithUs.com node client",

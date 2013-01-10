@@ -14,7 +14,7 @@ Sendwithus.prototype = {
 
         return this.api.post(endpoint, context);
     
-    };
+    }
 };
 
 module.exports = Sendwithus;
