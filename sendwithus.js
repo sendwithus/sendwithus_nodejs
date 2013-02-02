@@ -13,7 +13,6 @@ Sendwithus.prototype = {
         context.email_to = email_to;
 
         return this.api.post(endpoint, context);
-    
     }
 };
 
