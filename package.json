@@ -1,7 +1,7 @@
 {
     "name": "sendwithus",
     "main": "sendwithus",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "keywords": ["sendwithus", "send", "with", "us", "email", "transactional"],
     "homepage": "https://github.com/sendwithus/sendwithus_node",
     "repository": {
