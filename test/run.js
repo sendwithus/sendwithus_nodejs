@@ -1,16 +1,16 @@
 
 var API = require("../sendwithus");
 
-var key = '0b83260a5cd437d40023529f5dab7d84eeafed10';
+var key = 'THIS_IS_A_TEST_API_KEY';
 
 var options = {
-    'API_HOST': 'localhost',
-    'API_PORT': 8000,
+    'API_HOST': 'beta.sendwithus.com',
+    'API_PORT': 80,
     'API_PROTO': 'http'
 };
 
 var api = new API(key, options);
 
 console.log('> testing send ...');
-api.send('new_user_welcome', 'test@me.com', {'name': 'Jimmy the snake'});
+api.send('test', 'test@sendwithus.com', {'name': 'Jimmy the snake'});
 
