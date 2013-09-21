@@ -11,5 +11,5 @@ var api = new API(key, options);
 
 console.log('> testing send ...');
 
-api.send('test', 'test@sendwithus.com', {'name': 'Jimmy the snake'});
+api.send('test_fixture_1', { address: 'test@sendwithus.com' }, {'name': 'Jimmy the snake'});
 

@@ -6,14 +6,14 @@ var Sendwithus = function(key, options) {
 };
 
 Sendwithus.prototype = {
-    send: function(email_name, email_to, data) {
+    send: function(email_id, recipient, data) {
         var endpoint = 'send';
 
         var payload = {
-            email_name: email_name,
-            email_to: email_to,
+            email_id: email_id,
+            recipient: recipient,
             email_data: data
-        }
+        };
 
         return this.api.post(endpoint, payload);
     }
