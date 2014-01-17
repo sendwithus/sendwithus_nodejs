@@ -1,25 +1,36 @@
 {
-    "name": "sendwithus",
-    "main": "sendwithus",
-    "version": "1.0.1",
-    "keywords": ["sendwithus", "send", "with", "us", "email", "transactional"],
-    "homepage": "https://github.com/sendwithus/sendwithus_node",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/sendwithus/sendwithus_node"
-    },
-    "bugs": {
-        "url": "https://github.com/sendwithus/sendwithus_node/issues"
-    },
-    "directories": {
-        "test": ".test/",
-        "lib": ".lib/"
-    },
-    "scripts": {
-        "test": "node ./test/run.js"
-    },
-    "description": "SendWithUs.com node client",
-    "author": "Send With Us <us@sendwithus.com>",
-    "engine": "node >= 0.4.1"
+  "name": "sendwithus",
+  "version": "2.0.0",
+  "author": "Send With Us <us@sendwithus.com>",
+  "description": "SendWithUs.com Node.js client",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test/all.js"
+  },
+  "homepage": "https://github.com/sendwithus/sendwithus_node",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sendwithus/sendwithus_nodejs"
+  },
+  "bugs": {
+    "url": "https://github.com/sendwithus/sendwithus_nodejs/issues"
+  },
+  "directories": {
+    "test": ".test/",
+    "lib": ".lib/"
+  },
+  "keywords": [
+    "sendwithus",
+    "send",
+    "with",
+    "us",
+    "email",
+    "transactional"
+  ],
+  "dependencies": {
+    "restler": "~2.0.1"
+  },
+  "devDependencies": {
+    "nodeunit": ">=0.5.0"
+  }
 }
-
