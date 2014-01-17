@@ -1,4 +1,3 @@
-
 var API = require('./lib/api');
 
 var Sendwithus = function(key, options) {
@@ -6,13 +5,14 @@ var Sendwithus = function(key, options) {
 };
 
 Sendwithus.prototype = {
-    send: function(email_id, recipient, data) {
+    send: function(email_id, recipient, data, sender) {
         var endpoint = 'send';
 
         var payload = {
             email_id: email_id,
             recipient: recipient,
-            email_data: data
+            email_data: data,
+            sender: sender
         };
 
         return this.api.post(endpoint, payload);
