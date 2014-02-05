@@ -9,7 +9,7 @@ npm install sendwithus
 
 # Usage
 
-All callbacks are accept `err` and `data`:
+All callbacks accept `err` and `data`:
 
 ```javascript
 var callback = function(err, data) {
