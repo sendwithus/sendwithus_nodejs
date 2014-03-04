@@ -88,6 +88,21 @@ api.send({
 }, callback);
 ```
 
+### Optional BCC/CC
+
+```javascript
+var api = require('sendwithus')(API_KEY);
+api.send({
+    email_id: EMAIL_ID,
+    recipient: { address: 'us@sendwithus.com'},
+    bcc: [{ address: 'bcc@sendwithus.com' }],
+    cc: [
+    	{ address: 'cc1@sendwithus.com' },
+    	{ address: 'cc2@sendwithus.com' }
+    ]
+}, callback);
+```
+
 ## expected response
 
 ### Error cases
