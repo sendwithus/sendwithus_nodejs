@@ -124,7 +124,7 @@ module.exports.customers = {
 		callback();
 	},
 	create: function(test) {
-		this.sendwithus.customersCreate(this.customerData, function(err, data) {
+		this.sendwithus.customersUpdateOrCreate(this.customerData, function(err, data) {
 			test.ifError(err);
 			test.ok(data.success, 'response was not successful');
             test.equals(data.customer.email, 'foo@bar.com', 'Email address didnt match');
@@ -134,7 +134,7 @@ module.exports.customers = {
     del: function(test) {
         // Make sure customer exists
         var that = this;
-		this.sendwithus.customersCreate(this.customerData, function(err, data) {
+		this.sendwithus.customersUpdateOrCreate(this.customerData, function(err, data) {
 			test.ifError(err);
 			test.ok(data.success, 'response was not successful');
             test.equals(data.customer.email, 'foo@bar.com', 'Email address didnt match');
