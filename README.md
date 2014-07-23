@@ -24,7 +24,7 @@ var callback = function(err, data) {
 ## List Your Emails
 
 ```javascript
-var api = require('sendwithus')(API_KEY);
+var api = require('sendwithus')('API_KEY');
 api.emails(callback);
 ```
 
@@ -37,9 +37,9 @@ api.emails(callback);
 The `email_data` field is optional, but highly recommended!
 
 ```javascript
-var api = require('sendwithus')(API_KEY);
+var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: EMAIL_ID,
+    email_id: 'EMAIL_ID',
     recipient: { address: 'us@sendwithus.com'}
 }, callback);
 ```
@@ -48,9 +48,9 @@ api.send({
 
 
 ```javascript
-var api = require('sendwithus')(API_KEY);
+var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: EMAIL_ID,
+    email_id: 'EMAIL_ID',
     recipient: {
         address: 'us@sendwithus.com', // required
         name: 'Matt and Brad'
@@ -65,9 +65,9 @@ api.send({
 `sender['address']` is a required sender field
 
 ```javascript
-var api = require('sendwithus')(API_KEY);
+var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: EMAIL_ID,
+    email_id: 'EMAIL_ID',
     recipient: { address: 'us@sendwithus.com'},
     email_data: { first_name: 'Matt' },
     sender: {
@@ -83,9 +83,9 @@ api.send({
 `sender['name']` and `sender['reply_to']` are both optional
 
 ```javascript
-var api = require('sendwithus')(API_KEY);
+var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: EMAIL_ID,
+    email_id: 'EMAIL_ID',
     recipient: { address: 'us@sendwithus.com'},
     email_data: { first_name: 'Matt' },
     sender: {
@@ -100,7 +100,7 @@ api.send({
 
 
 ```javascript
-var api = require('sendwithus')(API_KEY);
+var api = require('sendwithus')('API_KEY');
 api.send({
     email_id: EMAIL_ID,
     recipient: { address: 'us@sendwithus.com'},
@@ -116,7 +116,7 @@ api.send({
 
 
 ```javascript
-var api = require('sendwithus')(API_KEY);
+var api = require('sendwithus')('API_KEY');
 api.customersCreate({ email: 'foo@bar.com', data: { name: 'Bob' } }, callback);
 ```
 
@@ -124,8 +124,33 @@ api.customersCreate({ email: 'foo@bar.com', data: { name: 'Bob' } }, callback);
 
 
 ```javascript
-var api = require('sendwithus')(API_KEY);
+var api = require('sendwithus')('API_KEY');
 api.customersDelete('foo@bar.com', callback);
+```
+
+## List Segments
+
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+api.segments(callback);
+```
+
+## Run a Segment
+
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+api.segmentsRun('SEGMENT_ID', callback);
+```
+
+## Send Email to a Segment
+
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+var data = { email_id: 'EMAIL_ID', email_data: { subject: 'Hello World' } };
+api.segmentsSend(SEGMENT_ID, data, callback);
 ```
 
 ## expected response
