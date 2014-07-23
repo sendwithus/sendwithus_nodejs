@@ -109,3 +109,43 @@ module.exports.emails = {
 		});
 	}
 };
+
+module.exports.customers = {
+	setUp: function(callback) {
+		this.sendwithus = sendwithusFactory(API_KEY);
+        this.customerData = {
+            email: 'foo@bar.com',
+            data: { my: 'data' }
+        };
+
+		callback();
+	},
+	tearDown: function(callback) {
+		callback();
+	},
+	create: function(test) {
+		this.sendwithus.customersUpdateOrCreate(this.customerData, function(err, data) {
+			test.ifError(err);
+			test.ok(data.success, 'response was not successful');
+            test.equals(data.customer.email, 'foo@bar.com', 'Email address didnt match');
+			test.done();
+		});
+	},
+    del: function(test) {
+        // Make sure customer exists
+        var that = this;
+		this.sendwithus.customersUpdateOrCreate(this.customerData, function(err, data) {
+			test.ifError(err);
+			test.ok(data.success, 'response was not successful');
+            test.equals(data.customer.email, 'foo@bar.com', 'Email address didnt match');
+
+            // Delete the customer
+            that.sendwithus.customersDelete(that.customerData.email, function(err, data) {
+                test.ifError(err);
+                test.ok(data.success, 'response was not successful');
+                test.done();
+            });
+		});
+
+    }
+};
