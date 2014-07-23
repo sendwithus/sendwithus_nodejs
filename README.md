@@ -30,7 +30,9 @@ api.emails(callback);
 
 ## Send an Email
 
+
 ### Call with REQUIRED parameters only
+
 
 The `email_data` field is optional, but highly recommended!
 
@@ -43,19 +45,23 @@ api.send({
 ```
 
 ### Call with REQUIRED parameters and email_data
+
+
 ```javascript
 var api = require('sendwithus')(API_KEY);
 api.send({
     email_id: EMAIL_ID,
     recipient: {
         address: 'us@sendwithus.com', // required
-        name: 'Matt and Brad' 
+        name: 'Matt and Brad'
     },
-    email_data: { first_name: 'Matt' } 
+    email_data: { first_name: 'Matt' }
 }, callback);
 ```
 
 ### Optional Sender
+
+
 `sender['address']` is a required sender field
 
 ```javascript
@@ -66,12 +72,14 @@ api.send({
     email_data: { first_name: 'Matt' },
     sender: {
         address: 'company@company.com', // required
-        name: 'Company' 
+        name: 'Company'
     }
 }, callback);
 ```
 
 ### Optional Sender with reply_to address
+
+
 `sender['name']` and `sender['reply_to']` are both optional
 
 ```javascript
@@ -90,6 +98,7 @@ api.send({
 
 ### Optional BCC/CC
 
+
 ```javascript
 var api = require('sendwithus')(API_KEY);
 api.send({
@@ -103,12 +112,31 @@ api.send({
 }, callback);
 ```
 
+## Create a Customer
+
+
+```javascript
+var api = require('sendwithus')(API_KEY);
+api.customersCreate({ email: 'foo@bar.com', data: { name: 'Bob' } }, callback);
+```
+
+## Delete a Customer
+
+
+```javascript
+var api = require('sendwithus')(API_KEY);
+api.customersDelete('foo@bar.com', callback);
+```
+
 ## expected response
+
 
 ### Error cases
 
+
 #### malformed request
-	
+
+
 ```javascript
 	> err.statusCode;
 	400
@@ -116,12 +144,14 @@ api.send({
 
 #### bad api key
 
+
 ```javascript
-	> err.statusCode;    
+	> err.statusCode;
 	403
 ```
 
 ## Run Tests
+
 
 ```
 npm test
