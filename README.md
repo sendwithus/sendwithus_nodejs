@@ -153,6 +153,36 @@ var data = { email_id: 'EMAIL_ID', email_data: { subject: 'Hello World' } };
 api.segmentsSend(SEGMENT_ID, data, callback);
 ```
 
+## List Drip Campaigns
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+api.dripCampaignList(callback);
+```
+
+## List Drip Campaign Steps
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+api.dripCampaignList('DRIP_CAMPAIGN_ID', callback);
+```
+
+## Start Customer on a Drip Campaign
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+var data = { recipient_address: 'RECIPIENT_ADDRESS' };
+api.dripCampaignActivate('DRIP_CAMPAIGN_ID', data, callback);
+```
+
+## Remove Customer from a Drip Campaign
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+var data = { recipient_address: 'RECIPIENT_ADDRESS' };
+api.dripCampaignDeactivate('DRIP_CAMPAIGN_ID', data, callback);
+```
+
 ## expected response
 
 

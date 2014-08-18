@@ -149,3 +149,22 @@ module.exports.customers = {
 
     }
 };
+
+module.exports.drips = {
+    setUp: function(callback) {
+        this.sendwithus = sendwithusFactory(API_KEY);
+        this.dripCampaignId = 'dc_asdf1234';
+        this.recipientAddress = 'customer@example.com';
+
+        callback();
+    },
+    tearDown: function(callback) {
+        callback();
+    },
+    listDripCampaigns: function(test) {
+        this.sendwithus.dripCampaignList(function(err, data) {
+            test.ifError(err);
+            test.done();
+        });
+    }
+};
