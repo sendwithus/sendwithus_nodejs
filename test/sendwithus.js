@@ -152,7 +152,7 @@ module.exports.customers = {
 
 module.exports.dripCampaigns = {
     setUp: function(callback) {
-        this.sendwithus = sendiwthusFactory(API_KEY);
+        this.sendwithus = sendwithusFactory(API_KEY);
         this.recipient = { recipient_address: 'customer@example.com' };
 
         callback();
