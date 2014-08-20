@@ -149,3 +149,43 @@ module.exports.customers = {
 
     }
 };
+
+module.exports.dripCampaigns = {
+    setUp: function(callback) {
+        this.sendwithus = sendiwthusFactory(API_KEY);
+        this.recipient = { recipient_address: 'customer@example.com' };
+
+        callback();
+    },
+    tearDown: function(callback) {
+        callback();
+    },
+    listCampaigns: function(test) {
+        this.sendwithus.dripCampaignList(function(err, data) {
+            test.ifError(err);
+            test.ok(data.success, 'response was not successful');
+            test.done();
+        });
+    },
+    listSteps: function(test) {
+        this.sendwithus.dripCampaignListSteps('dc_asdf1234', function(err, data) {
+            test.ifError(err);
+            test.ok(data.success, 'response was not successful');
+            test.done();
+        });
+    },
+    activateCampaign: function(test) {
+        this.sendwithus.dripCampaignActivate('dc_asdf1234', this.recipient, function(err, data) {
+            test.ifError(err);
+            test.ok(data.success, 'response was not successful');
+            test.done();
+        });
+    },
+    deactivateCampaign: function(test) {
+        this.sendwithus.dripCampaignDeactivate('dc_asdf1234', this.recipient, function(err, data) {
+            test.ifError(err);
+            test.ok(data.success, 'response was not successful');
+            test.done();
+        });
+    }
+};
