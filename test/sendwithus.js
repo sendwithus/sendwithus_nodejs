@@ -168,7 +168,7 @@ module.exports.dripCampaigns = {
         });
     },
     listSteps: function(test) {
-        this.sendwithus.dripCampaignListSteps('dc_asdf1234', function(err, data) {
+        this.sendwithus.dripCampaignDetails('dc_asdf1234', function(err, data) {
             test.ifError(err);
             test.ok(data.success, 'response was not successful');
             test.done();

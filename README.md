@@ -160,11 +160,11 @@ var api = require('sendwithus')('API_KEY');
 api.dripCampaignList(callback);
 ```
 
-## List Drip Campaign Steps
+## Show Drip Campaign Details
 
 ```javascript
 var api = require('sendwithus')('API_KEY');
-api.dripCampaignList('DRIP_CAMPAIGN_ID', callback);
+api.dripCampaignDetails('DRIP_CAMPAIGN_ID', callback);
 ```
 
 ## Start Customer on a Drip Campaign
