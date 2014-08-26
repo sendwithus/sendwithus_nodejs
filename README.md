@@ -106,8 +106,8 @@ api.send({
     recipient: { address: 'us@sendwithus.com'},
     bcc: [{ address: 'bcc@sendwithus.com' }],
     cc: [
-    	{ address: 'cc1@sendwithus.com' },
-    	{ address: 'cc2@sendwithus.com' }
+        { address: 'cc1@sendwithus.com' },
+        { address: 'cc2@sendwithus.com' }
     ]
 }, callback);
 ```
@@ -153,6 +153,36 @@ var data = { email_id: 'EMAIL_ID', email_data: { subject: 'Hello World' } };
 api.segmentsSend(SEGMENT_ID, data, callback);
 ```
 
+## List Drip Campaigns
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+api.dripCampaignList(callback);
+```
+
+## Show Drip Campaign Details
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+api.dripCampaignDetails('DRIP_CAMPAIGN_ID', callback);
+```
+
+## Start Customer on a Drip Campaign
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+var data = { recipient_address: 'RECIPIENT_ADDRESS' };
+api.dripCampaignActivate('DRIP_CAMPAIGN_ID', data, callback);
+```
+
+## Remove Customer from a Drip Campaign
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+var data = { recipient_address: 'RECIPIENT_ADDRESS' };
+api.dripCampaignDeactivate('DRIP_CAMPAIGN_ID', data, callback);
+```
+
 ## expected response
 
 
@@ -163,20 +193,27 @@ api.segmentsSend(SEGMENT_ID, data, callback);
 
 
 ```javascript
-	> err.statusCode;
-	400
+    > err.statusCode;
+    400
 ```
 
 #### bad api key
 
 
 ```javascript
-	> err.statusCode;
-	403
+    > err.statusCode;
+    403
 ```
 
 ## Run Tests
 
+Install requirements
+
+```
+npm install
+```
+
+Run Unit Tests
 
 ```
 npm test

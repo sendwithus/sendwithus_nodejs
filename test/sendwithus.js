@@ -1,6 +1,9 @@
-var API_KEY         = 'THIS_IS_A_TEST_API_KEY';
-var INVALID_API_KEY = 'This_IS_A_BAD_API_KEY';
-var EMAIL_ID        = 'test_fixture_1';
+var API_KEY          = 'THIS_IS_A_TEST_API_KEY';
+var INVALID_API_KEY  = 'This_IS_A_BAD_API_KEY';
+var EMAIL_ID         = 'test_fixture_1';
+var ENABLED_DRIP_ID  = 'dc_Rmd7y5oUJ3tn86sPJ8ESCk';
+var DISABLED_DRIP_ID = 'dc_AjR6Ue9PHPFYmEu2gd8x5V';
+var FALSE_DRIP_ID    = 'false_drip_campaign_id';
 
 var sendwithusFactory = require('../lib/sendwithus');
 
@@ -147,5 +150,58 @@ module.exports.customers = {
             });
 		});
 
+    }
+};
+
+module.exports.dripCampaigns = {
+    setUp: function(callback) {
+        this.sendwithus = sendwithusFactory(API_KEY);
+        this.recipient = { recipient_address: 'customer@example.com' };
+
+        callback();
+    },
+    tearDown: function(callback) {
+        callback();
+    },
+    listCampaigns: function(test) {
+        this.sendwithus.dripCampaignList(function(err, data) {
+            test.ifError(err);
+            test.done();
+        });
+    },
+    listCampaignsDetails: function(test) {
+        this.sendwithus.dripCampaignDetails(ENABLED_DRIP_ID, function(err, data) {
+            test.ifError(err);
+            test.equals(data.object, 'drip_campaign');
+            test.done();
+        });
+    },
+    activateOnEnabledCampaign: function(test) {
+        this.sendwithus.dripCampaignActivate(ENABLED_DRIP_ID, this.recipient, function(err, data) {
+            test.ifError(err);
+            test.ok(data.success, 'response was not successful');
+            test.done();
+        });
+    },
+    activateOnDisabledCampaign: function(test) {
+        this.sendwithus.dripCampaignActivate(DISABLED_DRIP_ID, this.recipient, function(err, data) {
+            test.ok(err, 'no error was thrown');
+            test.equals(err.statusCode, 400, 'Wrong status code');
+            test.done();
+        });
+    },
+    activateOnFalseCampaign: function(test) {
+        this.sendwithus.dripCampaignActivate(FALSE_DRIP_ID, this.recipient, function(err, data) {
+            test.ok(err, 'no error was thrown');
+            test.equals(err.statusCode, 400, 'Wrong status code');
+            test.done();
+        });
+    },
+    deactivateCampaign: function(test) {
+        this.sendwithus.dripCampaignDeactivate(ENABLED_DRIP_ID, this.recipient, function(err, data) {
+            test.ifError(err);
+            test.ok(data.success, 'response was not successful');
+            test.done();
+        });
     }
 };
