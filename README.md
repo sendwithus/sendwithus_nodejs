@@ -207,6 +207,11 @@ api.dripCampaignDeactivate('DRIP_CAMPAIGN_ID', data, callback);
     403
 ```
 
+## Events
+
+* `request: function(method, url, headers, body)` - emitted when a request has been sent to sendwithus
+* `response: function(statusCode, body, response)` - emitted when a response has been received back from sendwithus
+
 ## Run Tests
 
 Install requirements
