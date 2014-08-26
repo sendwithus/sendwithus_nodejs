@@ -207,6 +207,13 @@ api.dripCampaignDeactivate('DRIP_CAMPAIGN_ID', data, callback);
 
 ## Run Tests
 
+Install requirements
+
+```
+npm install
+```
+
+Run Unit Tests
 
 ```
 npm test
