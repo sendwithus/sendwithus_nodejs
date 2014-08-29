@@ -94,10 +94,10 @@ module.exports.send = {
 			email_data: { hello: 'World!' }
 		};
 
-		this.sendwithus.once('request',function(method,url,headers,body){
-			test.equals(method,'POST','wrong HTTP method');
-			test.equals(url,'https://api.sendwithus.com/api/v1_0/send','wrong HTTP url');
-			test.equals(headers['X-SWU-API-KEY'],API_KEY,'invalid X-SWU-API-KEY');
+		this.sendwithus.once('request', function(method,url,headers,body){
+			test.equals(method, 'POST', 'wrong HTTP method');
+			test.equals(url, 'https://api.sendwithus.com/api/v1_0/send', 'wrong HTTP url');
+			test.equals(headers['X-SWU-API-KEY'], API_KEY, 'invalid X-SWU-API-KEY');
 			test.done();
 		});
 
@@ -115,9 +115,9 @@ module.exports.send = {
 		};
 
 		this.sendwithus.once('response',function(statusCode, body, response){
-			test.equals(statusCode,200,'HTTP statusCode invalid');
-			test.equals(body.success,true,'success invalid');
-			test.equals(body.status,'OK','status invalid');
+			test.equals(statusCode, 200, 'HTTP statusCode invalid');
+			test.equals(body.success, true, 'success invalid');
+			test.equals(body.status, 'OK', 'status invalid');
 			test.done();
 		});
 
