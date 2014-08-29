@@ -85,6 +85,46 @@ module.exports.send = {
 			test.notStrictEqual(data.success, true, 'response was successful');
 			test.done();
 		});
+	},
+	requestEventValid: function(test){
+		var that = this;
+		var data = {
+			email_id: EMAIL_ID,
+			recipient: this.recipient,
+			email_data: { hello: 'World!' }
+		};
+
+		this.sendwithus.once('request', function(method,url,headers,body){
+			test.equals(method, 'POST', 'wrong HTTP method');
+			test.equals(url, 'https://api.sendwithus.com/api/v1_0/send', 'wrong HTTP url');
+			test.equals(headers['X-SWU-API-KEY'], API_KEY, 'invalid X-SWU-API-KEY');
+			test.done();
+		});
+
+		this.sendwithus.send(data, function(err, data) {
+			test.ifError(err);
+			test.ok(data.success, 'response was not successful');
+		});
+	},
+	responseEventValid: function(test){
+		var that = this;
+		var data = {
+			email_id: EMAIL_ID,
+			recipient: this.recipient,
+			email_data: { hello: 'World!' }
+		};
+
+		this.sendwithus.once('response',function(statusCode, body, response){
+			test.equals(statusCode, 200, 'HTTP statusCode invalid');
+			test.equals(body.success, true, 'success invalid');
+			test.equals(body.status, 'OK', 'status invalid');
+			test.done();
+		});
+
+		this.sendwithus.send(data, function(err, data) {
+			test.ifError(err);
+			test.ok(data.success, 'response was not successful');
+		});
 	}
 };
 
