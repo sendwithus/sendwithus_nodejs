@@ -177,12 +177,21 @@ var data = { recipient_address: 'RECIPIENT_ADDRESS' };
 api.dripCampaignActivate('DRIP_CAMPAIGN_ID', data, callback);
 ```
 
-## Remove Customer from a Drip Campaign
+## Remove Customer from a Single Drip Campaign
 
 ```javascript
 var api = require('sendwithus')('API_KEY');
 var data = { recipient_address: 'RECIPIENT_ADDRESS' };
 api.dripCampaignDeactivate('DRIP_CAMPAIGN_ID', data, callback);
+```
+
+
+## Remove Customer from **All** Drip Campaigns
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+var data = { recipient_address: 'RECIPIENT_ADDRESS' };
+api.dripCampaignDeactivateAll(data, callback);
 ```
 
 ## expected response

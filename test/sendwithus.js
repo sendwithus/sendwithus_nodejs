@@ -196,7 +196,7 @@ module.exports.customers = {
 module.exports.dripCampaigns = {
     setUp: function(callback) {
         this.sendwithus = sendwithusFactory(API_KEY);
-        this.recipient = { recipient_address: 'customer@example.com' };
+        this.recipientData = { recipient_address: 'customer@example.com' };
 
         callback();
     },
@@ -217,28 +217,35 @@ module.exports.dripCampaigns = {
         });
     },
     activateOnEnabledCampaign: function(test) {
-        this.sendwithus.dripCampaignActivate(ENABLED_DRIP_ID, this.recipient, function(err, data) {
+        this.sendwithus.dripCampaignActivate(ENABLED_DRIP_ID, this.recipientData, function(err, data) {
             test.ifError(err);
             test.ok(data.success, 'response was not successful');
             test.done();
         });
     },
     activateOnDisabledCampaign: function(test) {
-        this.sendwithus.dripCampaignActivate(DISABLED_DRIP_ID, this.recipient, function(err, data) {
+        this.sendwithus.dripCampaignActivate(DISABLED_DRIP_ID, this.recipientData, function(err, data) {
             test.ok(err, 'no error was thrown');
             test.equals(err.statusCode, 400, 'Wrong status code');
             test.done();
         });
     },
     activateOnFalseCampaign: function(test) {
-        this.sendwithus.dripCampaignActivate(FALSE_DRIP_ID, this.recipient, function(err, data) {
+        this.sendwithus.dripCampaignActivate(FALSE_DRIP_ID, this.recipientData, function(err, data) {
             test.ok(err, 'no error was thrown');
             test.equals(err.statusCode, 400, 'Wrong status code');
             test.done();
         });
     },
-    deactivateCampaign: function(test) {
-        this.sendwithus.dripCampaignDeactivate(ENABLED_DRIP_ID, this.recipient, function(err, data) {
+    deactivateCampaignForCustomer: function(test) {
+        this.sendwithus.dripCampaignDeactivate(ENABLED_DRIP_ID, this.recipientData, function(err, data) {
+            test.ifError(err);
+            test.ok(data.success, 'response was not successful');
+            test.done();
+        });
+    },
+    deactivateAllCampaignsForCustomer: function(test) {
+        this.sendwithus.dripCampaignDeactivateAll(this.recipientData, function(err, data) {
             test.ifError(err);
             test.ok(data.success, 'response was not successful');
             test.done();
