@@ -154,12 +154,14 @@ module.exports.emails = {
 };
 
 module.exports.customers = {
-	setUp: function(callback) {
-		this.sendwithus = sendwithusFactory(API_KEY);
+    setUp: function(callback) {
+        this.sendwithus = sendwithusFactory(API_KEY);
         this.customerData = {
             email: 'foo@bar.com',
             data: { my: 'data' }
         };
+
+        this.customerEventData = { event_name: 'purchase', revenue: 2000 };
 
 		callback();
 	},
@@ -174,6 +176,13 @@ module.exports.customers = {
 			test.done();
 		});
 	},
+    addEvent: function(test) {
+        this.sendwithus.addCustomerEvent('foo@bar.com', this.customerEventData, function(err, data) {
+            test.ifError(err);
+            test.ok(data.success, 'response was not successful');
+            test.done();
+        });
+    },
     del: function(test) {
         // Make sure customer exists
         var that = this;
@@ -247,7 +256,7 @@ module.exports.dripCampaigns = {
     deactivateAllCampaignsForCustomer: function(test) {
         this.sendwithus.dripCampaignDeactivateAll(this.recipientData, function(err, data) {
             test.ifError(err);
-            test.ok(data.success, 'response was not successful');
+
             test.done();
         });
     }
