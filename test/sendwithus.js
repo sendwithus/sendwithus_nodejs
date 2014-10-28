@@ -247,7 +247,27 @@ module.exports.dripCampaigns = {
     deactivateAllCampaignsForCustomer: function(test) {
         this.sendwithus.dripCampaignDeactivateAll(this.recipientData, function(err, data) {
             test.ifError(err);
-            test.ok(data.success, 'response was not successful');
+
+            test.done();
+        });
+    }
+};
+
+module.exports.customerEvents = {
+    setUp: function(callback) {
+        this.sendwithus = sendwithusFactory(API_KEY);
+        this.customerAddress = 'customer@example.com';
+        this.customerData = { event_name: 'purchase', revenue: 2000 };
+
+        callback();
+    },
+    tearDown: function(callback) {
+        callback();
+    },
+    addEvent: function(test) {
+        this.sendwithus.addCustomerEvent(this.customerAddress, this.customerData, function(err, data) {
+            test.ifError(err);
+            test.ok(data, 'response was not successful');
             test.done();
         });
     }
