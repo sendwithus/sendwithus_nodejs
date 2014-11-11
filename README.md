@@ -139,7 +139,7 @@ You can use the Conversion API to track conversion and revenue data events again
 ```javascript
 var api = require('sendwithus')('API_KEY');
 var conversionData = { 'revenue': 10050 };
-api.customersDelete('foo@bar.com', conversionData, callback);
+api.conversionEvent('foo@bar.com', conversionData, callback);
 ```
 
 ## List Segments
