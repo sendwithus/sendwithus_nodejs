@@ -177,14 +177,14 @@ module.exports.customers = {
 		});
 	},
     addEvent: function(test) {
-        this.sendwithus.addCustomerEvent(events'foo@bar.com', this.customerConversionData, function(err, data) {
+        this.sendwithus.addCustomerEvent('foo@bar.com', this.customerConversionData, function(err, data) {
             test.ifError(err);
             test.ok(data.success, 'response was not successful');
             test.done();
         });
     },
     conversionEvent: function(test) {
-        this.sendwithus.conversionEvent(events'foo@bar.com', this.customerConversionData, function(err, data) {
+        this.sendwithus.conversionEvent('foo@bar.com', this.customerConversionData, function(err, data) {
             test.ifError(err);
             test.ok(data.success, 'response was not successful');
             test.done();
