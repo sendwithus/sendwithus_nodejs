@@ -130,6 +130,18 @@ var api = require('sendwithus')('API_KEY');
 api.customersDelete('foo@bar.com', callback);
 ```
 
+## Conversion Event
+You can use the Conversion API to track conversion and revenue data events against your sent emails
+
+**NOTE:** Revenue is in cents (eg. $100.50 = 10050)
+
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+var conversionData = { 'revenue': 10050 };
+api.conversionEvent('foo@bar.com', conversionData, callback);
+```
+
 ## List Segments
 
 
