@@ -4,6 +4,7 @@ var EMAIL_ID         = 'test_fixture_1';
 var ENABLED_DRIP_ID  = 'dc_Rmd7y5oUJ3tn86sPJ8ESCk';
 var DISABLED_DRIP_ID = 'dc_AjR6Ue9PHPFYmEu2gd8x5V';
 var FALSE_DRIP_ID    = 'false_drip_campaign_id';
+var TEMPLATE = 'pmaBsiatWCuptZmojWESme';
 
 var sendwithusFactory = require('../lib/sendwithus');
 
@@ -155,7 +156,7 @@ module.exports.emails = {
 
 module.exports.customers = {
     setUp: function(callback) {
-        this.sendwithus = sendwithusFactory(API_KEY);
+        this.sendwithus   = sendwithusFactory(API_KEY);
         this.customerData = {
             email: 'foo@bar.com',
             data: { my: 'data' }
@@ -211,7 +212,7 @@ module.exports.customers = {
 
 module.exports.dripCampaigns = {
     setUp: function(callback) {
-        this.sendwithus = sendwithusFactory(API_KEY);
+        this.sendwithus    = sendwithusFactory(API_KEY);
         this.recipientData = { recipient_address: 'customer@example.com' };
 
         callback();
@@ -264,6 +265,32 @@ module.exports.dripCampaigns = {
         this.sendwithus.dripCampaignDeactivateAll(this.recipientData, function(err, data) {
             test.ifError(err);
 
+            test.done();
+        });
+    }
+};
+
+module.exports.createTemplates = {
+    setUp: function(callback) {
+        this.sendwithus   = sendwithusFactory(API_KEY, true);
+        this.templateData = { name: 'name', subject: 'subject', html: '<html><head></head><body></body></html>' };
+
+        callback();
+    },
+    tearDown: function(callback) {
+        callback();
+    },
+    createTemplate: function(test) {
+        this.sendwithus.createTemplate(this.templateData, function(err, data) {
+            test.ifError(err);
+            test.ok(data.name, 'response was not successful');
+            test.done();
+        });
+    },
+    createTemplateVersion: function(test) {
+        this.sendwithus.createTemplateVersion(TEMPLATE, this.templateData, function(err, data) {
+            test.ifError(err);
+            test.ok(data.name, 'response was not successful');
             test.done();
         });
     }
