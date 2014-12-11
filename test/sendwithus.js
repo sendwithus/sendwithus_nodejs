@@ -156,7 +156,7 @@ module.exports.emails = {
 
 module.exports.customers = {
     setUp: function(callback) {
-        this.sendwithus = sendwithusFactory(API_KEY);
+        this.sendwithus   = sendwithusFactory(API_KEY);
         this.customerData = {
             email: 'foo@bar.com',
             data: { my: 'data' }
@@ -212,7 +212,7 @@ module.exports.customers = {
 
 module.exports.dripCampaigns = {
     setUp: function(callback) {
-        this.sendwithus = sendwithusFactory(API_KEY);
+        this.sendwithus    = sendwithusFactory(API_KEY);
         this.recipientData = { recipient_address: 'customer@example.com' };
 
         callback();
@@ -272,7 +272,7 @@ module.exports.dripCampaigns = {
 
 module.exports.createTemplates = {
     setUp: function(callback) {
-        this.sendwithus = sendwithusFactory(API_KEY, true);
+        this.sendwithus   = sendwithusFactory(API_KEY, true);
         this.templateData = { name: 'name', subject: 'subject', html: '<html><head></head><body></body></html>' };
 
         callback();
