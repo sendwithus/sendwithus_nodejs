@@ -233,6 +233,23 @@ api.dripCampaignDeactivateAll(data, callback);
 * `request: function(method, url, headers, body)` - emitted when a request has been sent to sendwithus
 * `response: function(statusCode, body, response)` - emitted when a response has been received back from sendwithus
 
+## Templates
+
+### Create Template
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+var data = { name: 'name', subject: 'subject', html: '<html><head></head><body></body></html>', text: 'some text' };
+api.createTemplate(data, callback);
+```
+
+### Create Template Version
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+var data = { name: 'name', subject: 'subject', html: '<html><head></head><body></body></html>', text: 'some text' };
+api.createTemplateVersion(TEMPLATE_ID, data, callback);
+```
 ## Run Tests
 
 Install requirements
