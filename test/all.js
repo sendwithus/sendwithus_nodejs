@@ -1,5 +1,4 @@
-var nodeunit = require('nodeunit');
-var reporter = nodeunit.reporters['default'];
+var reporter = require('nodeunit').reporters.default;
 
 process.chdir(__dirname);
 
