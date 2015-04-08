@@ -4,294 +4,315 @@ var EMAIL_ID         = 'test_fixture_1';
 var ENABLED_DRIP_ID  = 'dc_Rmd7y5oUJ3tn86sPJ8ESCk';
 var DISABLED_DRIP_ID = 'dc_AjR6Ue9PHPFYmEu2gd8x5V';
 var FALSE_DRIP_ID    = 'false_drip_campaign_id';
-var TEMPLATE = 'pmaBsiatWCuptZmojWESme';
+var TEMPLATE         = 'pmaBsiatWCuptZmojWESme';
 
 var sendwithusFactory = require('../lib/sendwithus');
 
-module.exports.send = {
-	setUp: function(callback) {
-		this.sendwithus    = sendwithusFactory(API_KEY);
-		this.sendwithusBad = sendwithusFactory(INVALID_API_KEY);
+module.exports = {
 
-		this.recipient = {
-			name: 'Company',
-			address: 'company@company.com'
-		};
+  send: {
 
-		this.imcompleteRecipient = {
-			name: 'Company'
-		};
+    setUp: function (callback) {
+      this.sendwithus    = sendwithusFactory(API_KEY);
+      this.sendwithusBad = sendwithusFactory(INVALID_API_KEY);
 
-		this.sender = {
-			name: 'Sender',
-			address: 'sender@sender.com'
-		};
+      this.recipient = {
+        name: 'Company',
+        address: 'company@company.com'
+      };
 
-		callback();
-	},
-	tearDown: function(callback) {
-		callback();
-	},
-	noData: function(test) {
-		var that = this;
-		var data = {
-			email_id: EMAIL_ID,
-			recipient: this.recipient
-		};
+      this.imcompleteRecipient = {
+        name: 'Company'
+      };
 
-		this.sendwithus.send(data, function(err, data) {
-			test.ifError(err);
-			test.ok(data.success, 'response was not successful');
-			test.done();
-		});
-	},
-	withData: function(test) {
-		var that = this;
-		var data = {
-			email_id: EMAIL_ID,
-			recipient: this.recipient,
-			email_data: { hello: 'World!' }
-		};
+      this.sender = {
+        name: 'Sender',
+        address: 'sender@sender.com'
+      };
 
-		this.sendwithus.send(data, function(err, data) {
-			test.ifError(err);
-			test.ok(data.success, 'response was not successful');
-			test.done();
-		});
-	},
-	incompleteRecipient: function(test) {
-		var that = this;
-		var data = {
-			email_id: EMAIL_ID,
-			recipient: this.imcompleteRecipient
-		};
-
-		this.sendwithus.send(data, function(err, data) {
-			test.ok(err, 'no error was thrown');
-			test.equals(err.statusCode, 400, 'Wrong status code');
-			test.notStrictEqual(data.success, true, 'response was successful');
-			test.done();
-		});
-	},
-	invalidAPIKey: function(test) {
-		var that = this;
-		var data = {
-			email_id: EMAIL_ID,
-			recipient: this.imcompleteRecipient
-		};
-
-		this.sendwithusBad.send(data, function(err, data) {
-			test.ok(err, 'no error was thrown');
-			test.equals(err.statusCode, 403, 'Wrong status code');
-			test.notStrictEqual(data.success, true, 'response was successful');
-			test.done();
-		});
-	},
-	requestEventValid: function(test) {
-		var that = this;
-		var data = {
-			email_id: EMAIL_ID,
-			recipient: this.recipient,
-			email_data: { hello: 'World!' }
-		};
-
-		this.sendwithus.once('request', function(method,url,headers,body) {
-			test.equals(method, 'POST', 'wrong HTTP method');
-			test.equals(url, 'https://api.sendwithus.com/api/v1_0/send', 'wrong HTTP url');
-			test.equals(headers['X-SWU-API-KEY'], API_KEY, 'invalid X-SWU-API-KEY');
-			test.done();
-		});
-
-		this.sendwithus.send(data, function(err, data) {
-			test.ifError(err);
-			test.ok(data.success, 'response was not successful');
-		});
-	},
-	responseEventValid: function(test) {
-		var that = this;
-		var data = {
-			email_id: EMAIL_ID,
-			recipient: this.recipient,
-			email_data: { hello: 'World!' }
-		};
-
-		this.sendwithus.once('response',function(statusCode, body, response) {
-			test.equals(statusCode, 200, 'HTTP statusCode invalid');
-			test.equals(body.success, true, 'success invalid');
-			test.equals(body.status, 'OK', 'status invalid');
-			test.done();
-		});
-
-		this.sendwithus.send(data, function(err, data) {
-			test.ifError(err);
-			test.ok(data.success, 'response was not successful');
-		});
-	}
-};
-
-module.exports.emails = {
-	setUp: function(callback) {
-		this.sendwithus    = sendwithusFactory(API_KEY);
-		this.sendwithusBad = sendwithusFactory(INVALID_API_KEY);
-
-		callback();
-	},
-	tearDown: function(callback) {
-		callback();
-	},
-	list: function(test) {
-		this.sendwithus.emails(function(err, data) {
-			test.ifError(err);
-			test.done();
-		});
-	},
-	listInvalidAPIKey: function(test) {
-		this.sendwithusBad.emails(function(err, data) {
-			test.ok(err);
-			test.equals(err.statusCode, 403, 'Wrong status code');
-			test.done();
-		});
-	}
-};
-
-module.exports.customers = {
-    setUp: function(callback) {
-        this.sendwithus   = sendwithusFactory(API_KEY);
-        this.customerData = {
-            email: 'foo@bar.com',
-            data: { my: 'data' }
-        };
-
-        this.customerConversionData = { revenue: 2000 };
-
-		callback();
-	},
-	tearDown: function(callback) {
-		callback();
-	},
-	create: function(test) {
-		this.sendwithus.customersUpdateOrCreate(this.customerData, function(err, data) {
-			test.ifError(err);
-			test.ok(data.success, 'response was not successful');
-            test.equals(data.customer.email, 'foo@bar.com', 'Email address didnt match');
-			test.done();
-		});
-	},
-    addEvent: function(test) {
-        this.sendwithus.addCustomerEvent('foo@bar.com', this.customerConversionData, function(err, data) {
-            test.ifError(err);
-            test.ok(data.success, 'response was not successful');
-            test.done();
-        });
+      callback();
     },
-    conversionEvent: function(test) {
-        this.sendwithus.conversionEvent('foo@bar.com', this.customerConversionData, function(err, data) {
-            test.ifError(err);
-            test.ok(data.success, 'response was not successful');
-            test.done();
-        });
+
+    tearDown: function (callback) {
+      callback();
     },
-    del: function(test) {
-        // Make sure customer exists
-        var that = this;
-		this.sendwithus.customersUpdateOrCreate(this.customerData, function(err, data) {
-			test.ifError(err);
-			test.ok(data.success, 'response was not successful');
-            test.equals(data.customer.email, 'foo@bar.com', 'Email address didnt match');
 
-            // Delete the customer
-            that.sendwithus.customersDelete(that.customerData.email, function(err, data) {
-                test.ifError(err);
-                test.ok(data.success, 'response was not successful');
-                test.done();
-            });
-		});
+    noData: function (test) {
+      var data = {
+        email_id: EMAIL_ID,
+        recipient: this.recipient
+      };
 
+      this.sendwithus.send(data, function (err, data) {
+        test.ifError(err);
+        test.ok(data.success, 'response was not successful');
+        test.done();
+      });
+    },
+
+    withData: function (test) {
+      var data = {
+        email_id: EMAIL_ID,
+        recipient: this.recipient,
+        email_data: { hello: 'World!' }
+      };
+
+      this.sendwithus.send(data, function (err, data) {
+        test.ifError(err);
+        test.ok(data.success, 'response was not successful');
+        test.done();
+      });
+    },
+
+    incompleteRecipient: function (test) {
+      var data = {
+        email_id: EMAIL_ID,
+        recipient: this.imcompleteRecipient
+      };
+
+      this.sendwithus.send(data, function (err, data) {
+        test.ok(err, 'no error was thrown');
+        test.strictEqual(err.statusCode, 400, 'Wrong status code');
+        test.notStrictEqual(data.success, true, 'response was successful');
+        test.done();
+      });
+    },
+
+    invalidAPIKey: function (test) {
+      var data = {
+        email_id: EMAIL_ID,
+        recipient: this.imcompleteRecipient
+      };
+
+      this.sendwithusBad.send(data, function (err, data) {
+        test.ok(err, 'no error was thrown');
+        test.strictEqual(err.statusCode, 403, 'Wrong status code');
+        test.notStrictEqual(data.success, true, 'response was successful');
+        test.done();
+      });
+    },
+
+    requestEventValid: function (test) {
+      var data = {
+        email_id: EMAIL_ID,
+        recipient: this.recipient,
+        email_data: { hello: 'World!' }
+      };
+
+      this.sendwithus.once('request', function (method,url,headers,body) {
+        test.strictEqual(method, 'POST', 'wrong HTTP method');
+        test.strictEqual(url, 'https://api.sendwithus.com/api/v1_0/send', 'wrong HTTP url');
+        test.strictEqual(headers['X-SWU-API-KEY'], API_KEY, 'invalid X-SWU-API-KEY');
+        test.done();
+      });
+
+      this.sendwithus.send(data, function (err, data) {
+        test.ifError(err);
+        test.ok(data.success, 'response was not successful');
+      });
+    },
+
+    responseEventValid: function (test) {
+      var data = {
+        email_id: EMAIL_ID,
+        recipient: this.recipient,
+        email_data: { hello: 'World!' }
+      };
+
+      this.sendwithus.once('response',function (statusCode, body, response) {
+        test.strictEqual(statusCode, 200, 'HTTP statusCode invalid');
+        test.strictEqual(body.success, true, 'success invalid');
+        test.strictEqual(body.status, 'OK', 'status invalid');
+        test.done();
+      });
+
+      this.sendwithus.send(data, function (err, data) {
+        test.ifError(err);
+        test.ok(data.success, 'response was not successful');
+      });
     }
-};
 
-module.exports.dripCampaigns = {
-    setUp: function(callback) {
-        this.sendwithus    = sendwithusFactory(API_KEY);
-        this.recipientData = { recipient_address: 'customer@example.com' };
+  },
 
-        callback();
+  customers: {
+    setUp: function (callback) {
+      this.sendwithus   = sendwithusFactory(API_KEY);
+      this.customerData = {
+        email: 'foo@bar.com',
+        data: { my: 'data' }
+      };
+
+      this.customerConversionData = { revenue: 2000 };
+
+      callback();
     },
-    tearDown: function(callback) {
-        callback();
+
+    tearDown: function (callback) {
+      callback();
     },
-    listCampaigns: function(test) {
-        this.sendwithus.dripCampaignList(function(err, data) {
-            test.ifError(err);
-            test.done();
-        });
+
+    create: function (test) {
+      this.sendwithus.customersUpdateOrCreate(this.customerData, function (err, data) {
+        test.ifError(err);
+        test.ok(data.success, 'response was not successful');
+        test.strictEqual(data.customer.email, 'foo@bar.com', 'Email address didnt match');
+        test.done();
+      });
     },
-    listCampaignsDetails: function(test) {
-        this.sendwithus.dripCampaignDetails(ENABLED_DRIP_ID, function(err, data) {
-            test.ifError(err);
-            test.equals(data.object, 'drip_campaign');
-            test.done();
-        });
+
+    addEvent: function (test) {
+      this.sendwithus.addCustomerEvent('foo@bar.com', this.customerConversionData, function (err, data) {
+        test.ifError(err);
+        test.ok(data.success, 'response was not successful');
+        test.done();
+      });
     },
-    activateOnEnabledCampaign: function(test) {
-        this.sendwithus.dripCampaignActivate(ENABLED_DRIP_ID, this.recipientData, function(err, data) {
+
+    conversionEvent: function (test) {
+      this.sendwithus.conversionEvent('foo@bar.com', this.customerConversionData, function (err, data) {
+        test.ifError(err);
+        test.ok(data.success, 'response was not successful');
+        test.done();
+      });
+    },
+
+    del: function (test) {
+      // Make sure customer exists
+      var that = this;
+      this.sendwithus.customersUpdateOrCreate(this.customerData, function (err, data) {
+        test.ifError(err);
+        test.ok(data.success, 'response was not successful');
+          test.strictEqual(data.customer.email, 'foo@bar.com', 'Email address didnt match');
+
+          // Delete the customer
+          that.sendwithus.customersDelete(that.customerData.email, function (err, data) {
             test.ifError(err);
             test.ok(data.success, 'response was not successful');
             test.done();
-        });
-    },
-    activateOnDisabledCampaign: function(test) {
-        this.sendwithus.dripCampaignActivate(DISABLED_DRIP_ID, this.recipientData, function(err, data) {
-            test.ok(err, 'no error was thrown');
-            test.equals(err.statusCode, 400, 'Wrong status code');
-            test.done();
-        });
-    },
-    activateOnFalseCampaign: function(test) {
-        this.sendwithus.dripCampaignActivate(FALSE_DRIP_ID, this.recipientData, function(err, data) {
-            test.ok(err, 'no error was thrown');
-            test.equals(err.statusCode, 400, 'Wrong status code');
-            test.done();
-        });
-    },
-    deactivateCampaignForCustomer: function(test) {
-        this.sendwithus.dripCampaignDeactivate(ENABLED_DRIP_ID, this.recipientData, function(err, data) {
-            test.ifError(err);
-            test.ok(data.success, 'response was not successful');
-            test.done();
-        });
-    },
-    deactivateAllCampaignsForCustomer: function(test) {
-        this.sendwithus.dripCampaignDeactivateAll(this.recipientData, function(err, data) {
-            test.ifError(err);
-
-            test.done();
-        });
+          });
+      });
     }
-};
+  },
 
-module.exports.createTemplates = {
-    setUp: function(callback) {
-        this.sendwithus   = sendwithusFactory(API_KEY, true);
-        this.templateData = { name: 'name', subject: 'subject', html: '<html><head></head><body></body></html>' };
+  dripCampaigns: {
 
+    setUp: function (callback) {
+      this.sendwithus    = sendwithusFactory(API_KEY);
+      this.recipientData = { recipient_address: 'customer@example.com' };
+
+      callback();
+    },
+
+    tearDown: function (callback) {
         callback();
     },
-    tearDown: function(callback) {
-        callback();
+
+    listCampaigns: function (test) {
+      this.sendwithus.dripCampaignList(function (err, data) {
+        test.ifError(err);
+        test.done();
+      });
     },
-    createTemplate: function(test) {
-        this.sendwithus.createTemplate(this.templateData, function(err, data) {
-            test.ifError(err);
-            test.ok(data.name, 'response was not successful');
-            test.done();
-        });
+
+    listCampaignsDetails: function (test) {
+      this.sendwithus.dripCampaignDetails(ENABLED_DRIP_ID, function (err, data) {
+        test.ifError(err);
+        test.strictEqual(data.object, 'drip_campaign');
+        test.done();
+      });
     },
-    createTemplateVersion: function(test) {
-        this.sendwithus.createTemplateVersion(TEMPLATE, this.templateData, function(err, data) {
-            test.ifError(err);
-            test.ok(data.name, 'response was not successful');
-            test.done();
-        });
+
+    activateOnEnabledCampaign: function (test) {
+      this.sendwithus.dripCampaignActivate(ENABLED_DRIP_ID, this.recipientData, function (err, data) {
+        test.ifError(err);
+        test.ok(data.success, 'response was not successful');
+        test.done();
+      });
+    },
+
+    activateOnDisabledCampaign: function (test) {
+      this.sendwithus.dripCampaignActivate(DISABLED_DRIP_ID, this.recipientData, function (err, data) {
+        test.ok(err, 'no error was thrown');
+        test.strictEqual(err.statusCode, 400, 'Wrong status code');
+        test.done();
+      });
+    },
+
+    activateOnFalseCampaign: function (test) {
+      this.sendwithus.dripCampaignActivate(FALSE_DRIP_ID, this.recipientData, function (err, data) {
+        test.ok(err, 'no error was thrown');
+        test.strictEqual(err.statusCode, 400, 'Wrong status code');
+        test.done();
+      });
+    },
+
+    deactivateCampaignForCustomer: function (test) {
+      this.sendwithus.dripCampaignDeactivate(ENABLED_DRIP_ID, this.recipientData, function (err, data) {
+        test.ifError(err);
+        test.ok(data.success, 'response was not successful');
+        test.done();
+      });
+    },
+
+    deactivateAllCampaignsForCustomer: function (test) {
+      this.sendwithus.dripCampaignDeactivateAll(this.recipientData, function (err, data) {
+        test.ifError(err);
+        test.done();
+      });
     }
+
+  },
+
+  templates: {
+
+    setUp: function (callback) {
+      this.sendwithus    = sendwithusFactory(API_KEY);
+      this.sendwithusBad = sendwithusFactory(INVALID_API_KEY);
+      this.templateData  = {
+        name: 'name',
+        subject: 'subject',
+        html: '<html><head></head><body></body></html>'
+      };
+
+      callback();
+    },
+
+    tearDown: function (callback) {
+      callback();
+    },
+
+    templateList: function (test) {
+      this.sendwithus.templateList(function (err, data) {
+        test.ifError(err);
+        test.ok(Array.isArray(data), 'response did not return an array');
+        test.done();
+      });
+    },
+
+    templateListInvalidAPIKey: function (test) {
+      this.sendwithusBad.templateList(function (err, data) {
+        test.ok(err);
+        test.strictEqual(err.statusCode, 403, 'Wrong status code');
+        test.done();
+      });
+    },
+
+    createTemplate: function (test) {
+      this.sendwithus.createTemplate(this.templateData, function (err, data) {
+        test.ifError(err);
+        test.ok(data.name, 'response was not successful');
+        test.done();
+      });
+    },
+
+    createTemplateVersion: function (test) {
+      this.sendwithus.createTemplateVersion(TEMPLATE, this.templateData, function (err, data) {
+        test.ifError(err);
+        test.ok(data.name, 'response was not successful');
+        test.done();
+      });
+    }
+
+  }
+
 };
