@@ -1,5 +1,7 @@
-sendwithus node-client
+Sendwithus NodeJS Client
 ========================
+
+[![NPM](https://nodei.co/npm/sendwithus.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/sendwithus/)
 
 [![Build Status](https://travis-ci.org/sendwithus/sendwithus_nodejs.png)](https://travis-ci.org/sendwithus/sendwithus_nodejs)
 
@@ -11,246 +13,223 @@ npm install sendwithus
 
 # Usage
 
-All callbacks accept `err` and `data`:
+All callbacks follow the Node convention of `err` and `data` respectively as function params:
 
 ```javascript
-var callback = function(err, data) {
-    if (err) {
-        console.log(err, err.statusCode);
-    } else {
-        console.log(data);
-    }
+var callback = function (err, data) {
+  if (err) {
+    console.log(err, err.statusCode);
+  } else {
+    console.log(data);
+  }
 };
 ```
 
-## List Your Emails
+
+# API
+
+To start using this module, instantiate it with your sendwithus API key:
 
 ```javascript
 var api = require('sendwithus')('API_KEY');
-api.emails(callback);
 ```
 
-## Send an Email
-
+## Send an email
 
 ### Call with REQUIRED parameters only
-
 
 The `email_data` field is optional, but highly recommended!
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: 'EMAIL_ID',
-    recipient: { address: 'us@sendwithus.com'}
+  email_id: 'EMAIL_ID',
+  recipient: { 
+    address: 'us@sendwithus.com'
+  }
 }, callback);
 ```
 
 ### Call with REQUIRED parameters and email_data
 
-
 ```javascript
-var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: 'EMAIL_ID',
-    recipient: {
-        address: 'us@sendwithus.com', // required
-        name: 'Matt and Brad'
-    },
-    email_data: { first_name: 'Matt' }
+  email_id: 'EMAIL_ID',
+  recipient: {
+    address: 'us@sendwithus.com', // required
+    name: 'Matt and Brad'
+  },
+  email_data: { first_name: 'Matt' }
 }, callback);
 ```
 
-### Optional Sender
-
+### Optional sender
 
 `sender['address']` is a required sender field
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: 'EMAIL_ID',
-    recipient: { address: 'us@sendwithus.com'},
-    email_data: { first_name: 'Matt' },
-    sender: {
-        address: 'company@company.com', // required
-        name: 'Company'
-    }
+  email_id: 'EMAIL_ID',
+  recipient: { address: 'us@sendwithus.com'},
+  email_data: { first_name: 'Matt' },
+  sender: {
+    address: 'company@company.com', // required
+    name: 'Company'
+  }
 }, callback);
 ```
 
-### Optional Sender with reply_to address
-
+### Optional sender with reply_to address
 
 `sender['name']` and `sender['reply_to']` are both optional
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: 'EMAIL_ID',
-    recipient: { address: 'us@sendwithus.com'},
-    email_data: { first_name: 'Matt' },
-    sender: {
-        address: 'company@company.com', // required
-        name: 'Company',
-        reply_to: 'info@company.com'
-    }
+  email_id: 'EMAIL_ID',
+  recipient: { address: 'us@sendwithus.com'},
+  email_data: { first_name: 'Matt' },
+  sender: {
+    address: 'company@company.com', // required
+    name: 'Company',
+    reply_to: 'info@company.com'
+  }
 }, callback);
 ```
 
 ### Optional BCC/CC
 
-
 ```javascript
-var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: EMAIL_ID,
-    recipient: { address: 'us@sendwithus.com'},
-    bcc: [{ address: 'bcc@sendwithus.com' }],
-    cc: [
-        { address: 'cc1@sendwithus.com' },
-        { address: 'cc2@sendwithus.com' }
-    ]
+  email_id: EMAIL_ID,
+  recipient: { address: 'us@sendwithus.com'},
+  bcc: [{ address: 'bcc@sendwithus.com' }],
+  cc: [
+    { address: 'cc1@sendwithus.com' },
+    { address: 'cc2@sendwithus.com' }
+  ]
 }, callback);
 ```
 
-## Update or Create a Customer
 
+## Customers
+
+### Update or create a customer
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
-api.customersUpdateOrCreate({ email: 'foo@bar.com', data: { name: 'Bob' } }, callback);
+api.customersUpdateOrCreate({
+  email: 'foo@bar.com',
+  data: { name: 'Bob' }
+}, callback);
 ```
 
-## Delete a Customer
-
+### Delete a customer
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
 api.customersDelete('foo@bar.com', callback);
 ```
 
-## Conversion Event
+## Events
+
+### Conversions
+
 You can use the Conversion API to track conversion and revenue data events against your sent emails
 
 **NOTE:** Revenue is in cents (eg. $100.50 = 10050)
 
-
 ```javascript
-var api = require('sendwithus')('API_KEY');
 var conversionData = { 'revenue': 10050 };
 api.conversionEvent('foo@bar.com', conversionData, callback);
 ```
 
-## List Segments
+## Segments
 
+### List segments
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
 api.segments(callback);
 ```
 
-## Run a Segment
-
+### Run a segment
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
 api.segmentsRun('SEGMENT_ID', callback);
 ```
 
-## Send Email to a Segment
-
+### Send email to a segment
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
-var data = { email_id: 'EMAIL_ID', email_data: { subject: 'Hello World' } };
+var data = { 
+  email_id: 'EMAIL_ID', 
+  email_data: { subject: 'Hello World' }
+};
 api.segmentsSend(SEGMENT_ID, data, callback);
 ```
 
-## List Drip Campaigns
+
+## Drip Campaigns
+
+### List drip campaigns
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
 api.dripCampaignList(callback);
 ```
 
-## Show Drip Campaign Details
+### Show drip campaign details
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
 api.dripCampaignDetails('DRIP_CAMPAIGN_ID', callback);
 ```
 
-## Start Customer on a Drip Campaign
+## Start customer on a drip campaign
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
 var data = { recipient_address: 'RECIPIENT_ADDRESS' };
 api.dripCampaignActivate('DRIP_CAMPAIGN_ID', data, callback);
 ```
 
-## Remove Customer from a Single Drip Campaign
+## Remove customer from a single drip campaign
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
 var data = { recipient_address: 'RECIPIENT_ADDRESS' };
 api.dripCampaignDeactivate('DRIP_CAMPAIGN_ID', data, callback);
 ```
 
 
-## Remove Customer from **All** Drip Campaigns
+## Remove customer from **All** drip campaigns
 
 ```javascript
-var api = require('sendwithus')('API_KEY');
 var data = { recipient_address: 'RECIPIENT_ADDRESS' };
 api.dripCampaignDeactivateAll(data, callback);
 ```
 
-## expected response
 
+## Expected responses
 
 ### Error cases
 
-
-#### malformed request
-
+#### Malformed request
 
 ```javascript
-    > err.statusCode;
-    400
+> err.statusCode;
+400
 ```
 
-#### bad api key
-
+#### Bad api key
 
 ```javascript
-    > err.statusCode;
-    403
+> err.statusCode;
+403
 ```
 
 ## Events
 
-* `request: function(method, url, headers, body)` - emitted when a request has been sent to sendwithus
-* `response: function(statusCode, body, response)` - emitted when a response has been received back from sendwithus
+* `request: function (method, url, headers, body)` - emitted when a request has been sent to sendwithus
+* `response: function (statusCode, body, response)` - emitted when a response has been received back from sendwithus
 
-## Templates
 
-### Create Template
+## Contributing
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. We also ask that you lint and test your code prior to creating a Pull Request.
 
-```javascript
-var api = require('sendwithus')('API_KEY');
-var data = { name: 'name', subject: 'subject', html: '<html><head></head><body></body></html>', text: 'some text' };
-api.createTemplate(data, callback);
-```
-
-### Create Template Version
-
-```javascript
-var api = require('sendwithus')('API_KEY');
-var data = { name: 'name', subject: 'subject', html: '<html><head></head><body></body></html>', text: 'some text' };
-api.createTemplateVersion(TEMPLATE_ID, data, callback);
-```
-## Run Tests
+### Run Tests
 
 Install requirements
 
