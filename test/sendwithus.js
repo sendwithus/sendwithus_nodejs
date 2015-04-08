@@ -38,7 +38,6 @@ module.exports = {
     },
 
     noData: function (test) {
-      var that = this;
       var data = {
         email_id: EMAIL_ID,
         recipient: this.recipient
@@ -52,7 +51,6 @@ module.exports = {
     },
 
     withData: function (test) {
-      var that = this;
       var data = {
         email_id: EMAIL_ID,
         recipient: this.recipient,
@@ -67,7 +65,6 @@ module.exports = {
     },
 
     incompleteRecipient: function (test) {
-      var that = this;
       var data = {
         email_id: EMAIL_ID,
         recipient: this.imcompleteRecipient
@@ -75,14 +72,13 @@ module.exports = {
 
       this.sendwithus.send(data, function (err, data) {
         test.ok(err, 'no error was thrown');
-        test.equals(err.statusCode, 400, 'Wrong status code');
+        test.strictEqual(err.statusCode, 400, 'Wrong status code');
         test.notStrictEqual(data.success, true, 'response was successful');
         test.done();
       });
     },
 
     invalidAPIKey: function (test) {
-      var that = this;
       var data = {
         email_id: EMAIL_ID,
         recipient: this.imcompleteRecipient
@@ -90,14 +86,13 @@ module.exports = {
 
       this.sendwithusBad.send(data, function (err, data) {
         test.ok(err, 'no error was thrown');
-        test.equals(err.statusCode, 403, 'Wrong status code');
+        test.strictEqual(err.statusCode, 403, 'Wrong status code');
         test.notStrictEqual(data.success, true, 'response was successful');
         test.done();
       });
     },
 
     requestEventValid: function (test) {
-      var that = this;
       var data = {
         email_id: EMAIL_ID,
         recipient: this.recipient,
@@ -105,9 +100,9 @@ module.exports = {
       };
 
       this.sendwithus.once('request', function (method,url,headers,body) {
-        test.equals(method, 'POST', 'wrong HTTP method');
-        test.equals(url, 'https://api.sendwithus.com/api/v1_0/send', 'wrong HTTP url');
-        test.equals(headers['X-SWU-API-KEY'], API_KEY, 'invalid X-SWU-API-KEY');
+        test.strictEqual(method, 'POST', 'wrong HTTP method');
+        test.strictEqual(url, 'https://api.sendwithus.com/api/v1_0/send', 'wrong HTTP url');
+        test.strictEqual(headers['X-SWU-API-KEY'], API_KEY, 'invalid X-SWU-API-KEY');
         test.done();
       });
 
@@ -118,7 +113,6 @@ module.exports = {
     },
 
     responseEventValid: function (test) {
-      var that = this;
       var data = {
         email_id: EMAIL_ID,
         recipient: this.recipient,
@@ -126,9 +120,9 @@ module.exports = {
       };
 
       this.sendwithus.once('response',function (statusCode, body, response) {
-        test.equals(statusCode, 200, 'HTTP statusCode invalid');
-        test.equals(body.success, true, 'success invalid');
-        test.equals(body.status, 'OK', 'status invalid');
+        test.strictEqual(statusCode, 200, 'HTTP statusCode invalid');
+        test.strictEqual(body.success, true, 'success invalid');
+        test.strictEqual(body.status, 'OK', 'status invalid');
         test.done();
       });
 
@@ -161,7 +155,7 @@ module.exports = {
       this.sendwithus.customersUpdateOrCreate(this.customerData, function (err, data) {
         test.ifError(err);
         test.ok(data.success, 'response was not successful');
-        test.equals(data.customer.email, 'foo@bar.com', 'Email address didnt match');
+        test.strictEqual(data.customer.email, 'foo@bar.com', 'Email address didnt match');
         test.done();
       });
     },
@@ -188,7 +182,7 @@ module.exports = {
       this.sendwithus.customersUpdateOrCreate(this.customerData, function (err, data) {
         test.ifError(err);
         test.ok(data.success, 'response was not successful');
-          test.equals(data.customer.email, 'foo@bar.com', 'Email address didnt match');
+          test.strictEqual(data.customer.email, 'foo@bar.com', 'Email address didnt match');
 
           // Delete the customer
           that.sendwithus.customersDelete(that.customerData.email, function (err, data) {
@@ -223,7 +217,7 @@ module.exports = {
     listCampaignsDetails: function (test) {
       this.sendwithus.dripCampaignDetails(ENABLED_DRIP_ID, function (err, data) {
         test.ifError(err);
-        test.equals(data.object, 'drip_campaign');
+        test.strictEqual(data.object, 'drip_campaign');
         test.done();
       });
     },
@@ -239,7 +233,7 @@ module.exports = {
     activateOnDisabledCampaign: function (test) {
       this.sendwithus.dripCampaignActivate(DISABLED_DRIP_ID, this.recipientData, function (err, data) {
         test.ok(err, 'no error was thrown');
-        test.equals(err.statusCode, 400, 'Wrong status code');
+        test.strictEqual(err.statusCode, 400, 'Wrong status code');
         test.done();
       });
     },
@@ -247,7 +241,7 @@ module.exports = {
     activateOnFalseCampaign: function (test) {
       this.sendwithus.dripCampaignActivate(FALSE_DRIP_ID, this.recipientData, function (err, data) {
         test.ok(err, 'no error was thrown');
-        test.equals(err.statusCode, 400, 'Wrong status code');
+        test.strictEqual(err.statusCode, 400, 'Wrong status code');
         test.done();
       });
     },
@@ -290,6 +284,7 @@ module.exports = {
     templateList: function (test) {
       this.sendwithus.templateList(function (err, data) {
         test.ifError(err);
+        test.ok(Array.isArray(data), 'response did not return an array');
         test.done();
       });
     },
@@ -297,7 +292,7 @@ module.exports = {
     templateListInvalidAPIKey: function (test) {
       this.sendwithusBad.templateList(function (err, data) {
         test.ok(err);
-        test.equals(err.statusCode, 403, 'Wrong status code');
+        test.strictEqual(err.statusCode, 403, 'Wrong status code');
         test.done();
       });
     },
