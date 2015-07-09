@@ -185,7 +185,15 @@ api.dripCampaignDetails('DRIP_CAMPAIGN_ID', callback);
 
 ```javascript
 var api = require('sendwithus')('API_KEY');
-var data = { recipient_address: 'RECIPIENT_ADDRESS' };
+var data = {
+  recipient: {
+    address: 'RECIPIENT_ADDRESS',
+    name: 'RECIPIENT_NAME'
+  },
+  email_data: {
+    country: 'Latveria'
+  }
+}
 api.dripCampaignActivate('DRIP_CAMPAIGN_ID', data, callback);
 ```
 
