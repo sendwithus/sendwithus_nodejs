@@ -7,7 +7,7 @@
   "scripts": {
     "test": "node ./test/all.js"
   },
-  "homepage": "https://github.com/sendwithus/sendwithus_node",
+  "homepage": "https://github.com/sendwithus/sendwithus_nodejs",
   "repository": {
     "type": "git",
     "url": "https://github.com/sendwithus/sendwithus_nodejs"
