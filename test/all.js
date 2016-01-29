@@ -3,4 +3,4 @@ var reporter = nodeunit.reporters['default'];
 
 process.chdir(__dirname);
 
-reporter.run([ 'sendwithus.js' ]);
+reporter.run(['sendwithus.js']);
