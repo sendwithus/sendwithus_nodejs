@@ -32,6 +32,19 @@ api.emails(callback);
 
 ## Send an Email
 
+*NOTE* - If a customer does not exist by the specified email (recipient address), the send call will create a customer.
+
+- email_id                  -- Template ID to send
+- recipient
+   - address                -- The recipient's email address
+   - name (optional)        -- The recipient's name
+- email_data                -- Object containing email template data
+- sender (optional)
+   - address                -- The sender's email address
+   - reply_to (optional)    -- The sender's reply-to address
+   - name (optional)        -- The sender's name
+- cc (optional)             -- An array of CC recipients, of the format {"address":"cc@email.com"}
+- bcc (optional)            -- An array of BCC recipients, of the format {"address":"bcc@email.com"}
 
 ### Call with REQUIRED parameters only
 
