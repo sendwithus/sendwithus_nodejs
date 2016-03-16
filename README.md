@@ -14,11 +14,11 @@ npm install sendwithus
 All callbacks accept `err` and `data`:
 
 ```javascript
-var callback = function(err, data) {
+var callback = function(err, response) {
     if (err) {
-        console.log(err, err.statusCode);
+        console.log(err.statusCode, response);
     } else {
-        console.log(data);
+        console.log(response);
     }
 };
 ```
