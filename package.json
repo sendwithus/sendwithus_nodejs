@@ -1,12 +1,13 @@
 {
   "name": "sendwithus",
-  "version": "2.9.2",
-  "author": "Send With Us <us@sendwithus.com>",
-  "description": "SendWithUs.com Node.js client",
+  "version": "2.9.3",
+  "author": "Sendwithus <us@sendwithus.com>",
+  "description": "Sendwithus.com Node.js client",
   "main": "index.js",
   "scripts": {
     "test": "node ./test/all.js"
   },
+  "license": "Apache-2.0",
   "homepage": "https://github.com/sendwithus/sendwithus_nodejs",
   "repository": {
     "type": "git",
