@@ -29,7 +29,7 @@
     "transactional"
   ],
   "dependencies": {
-    "restler": "~3.2.2"
+    "restler": "~3.4.0"
   },
   "devDependencies": {
     "nodeunit": "^0.9.1"
