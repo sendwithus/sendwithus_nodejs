@@ -34,7 +34,7 @@ api.emails(callback);
 
 *NOTE* - If a customer does not exist by the specified email (recipient address), the send call will create a customer.
 
-- email_id                  -- Template ID to send
+- template                  -- Template ID to send
 - recipient
    - address                -- The recipient's email address
    - name (optional)        -- The recipient's name
@@ -54,7 +54,7 @@ The `email_data` field is optional, but highly recommended!
 ```javascript
 var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: 'EMAIL_ID',
+    template: 'TEMPLATE_ID',
     recipient: { address: 'us@sendwithus.com'}
 }, callback);
 ```
@@ -65,7 +65,7 @@ api.send({
 ```javascript
 var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: 'EMAIL_ID',
+    template: 'TEMPLATE_ID',
     recipient: {
         address: 'us@sendwithus.com', // required
         name: 'Matt and Brad'
@@ -82,7 +82,7 @@ api.send({
 ```javascript
 var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: 'EMAIL_ID',
+    template: 'TEMPLATE_ID',
     recipient: { address: 'us@sendwithus.com'},
     email_data: { first_name: 'Matt' },
     sender: {
@@ -100,7 +100,7 @@ api.send({
 ```javascript
 var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: 'EMAIL_ID',
+    template: 'TEMPLATE_ID',
     recipient: { address: 'us@sendwithus.com'},
     email_data: { first_name: 'Matt' },
     sender: {
@@ -117,7 +117,7 @@ api.send({
 ```javascript
 var api = require('sendwithus')('API_KEY');
 api.send({
-    email_id: EMAIL_ID,
+    template: TEMPLATE_ID,
     recipient: { address: 'us@sendwithus.com'},
     bcc: [{ address: 'bcc@sendwithus.com' }],
     cc: [
