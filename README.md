@@ -155,31 +155,6 @@ var conversionData = { 'revenue': 10050 };
 api.conversionEvent('foo@bar.com', conversionData, callback);
 ```
 
-## List Segments
-
-
-```javascript
-var api = require('sendwithus')('API_KEY');
-api.segments(callback);
-```
-
-## Run a Segment
-
-
-```javascript
-var api = require('sendwithus')('API_KEY');
-api.segmentsRun('SEGMENT_ID', callback);
-```
-
-## Send Email to a Segment
-
-
-```javascript
-var api = require('sendwithus')('API_KEY');
-var data = { email_id: 'EMAIL_ID', email_data: { subject: 'Hello World' } };
-api.segmentsSend(SEGMENT_ID, data, callback);
-```
-
 ## List Drip Campaigns
 
 ```javascript
