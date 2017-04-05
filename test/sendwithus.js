@@ -186,20 +186,6 @@ module.exports.customers = {
       test.done();
     });
   },
-  addEvent: function (test) {
-    this.sendwithus.addCustomerEvent('foo@bar.com', this.customerConversionData, function (err, result) {
-      test.ifError(err);
-      test.ok(result.success, 'Response was successful');
-      test.done();
-    });
-  },
-  conversionEvent: function (test) {
-    this.sendwithus.conversionEvent('foo@bar.com', this.customerConversionData, function (err, result) {
-      test.ifError(err);
-      test.ok(result.success, 'Response was successful');
-      test.done();
-    });
-  },
   del: function (test) {
     // Make sure customer exists
     var that = this;
