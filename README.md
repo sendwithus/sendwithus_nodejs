@@ -58,7 +58,7 @@ api.createTemplateVersion(TEMPLATE_ID, data, callback);
 - recipient
    - address                &mdash; The recipient's email address
    - name (optional)        &mdash; The recipient's name
-- email_data (optional)     &mdash; Object containing email template data
+- template_data (optional)     &mdash; Object containing email template data
 - sender (optional)
    - address                &mdash; The sender's email address
    - reply_to (optional)    &mdash; The sender's reply-to address
@@ -68,10 +68,11 @@ api.createTemplateVersion(TEMPLATE_ID, data, callback);
 - headers (optional)         &mdash; Object contain SMTP headers to be included with the email
 - esp\_account (optional)   &mdash; ID of the ESP Account to send this email through. ex: esp\_1a2b3c4d5e
 - locale (optional)         &mdash; Template locale to send (ie: en-US)
+- version_name (optional)   &mdash; Template version to send (ie: Version A)
 
 ### Call with REQUIRED parameters only
 
-The `email_data` field is optional, but highly recommended!
+The `template_data` field is optional, but highly recommended!
 
 ```javascript
 var api = require('sendwithus')('API_KEY');
@@ -81,7 +82,7 @@ api.send({
 }, callback);
 ```
 
-### Call with REQUIRED parameters and email_data
+### Call with REQUIRED parameters and template_data
 
 ```javascript
 var api = require('sendwithus')('API_KEY');
@@ -91,7 +92,7 @@ api.send({
         address: 'us@sendwithus.com', // required
         name: 'Matt and Brad'
     },
-    email_data: { first_name: 'Matt' }
+    template_data: { first_name: 'Matt' }
 }, callback);
 ```
 
@@ -104,7 +105,7 @@ var api = require('sendwithus')('API_KEY');
 api.send({
     template: 'TEMPLATE_ID',
     recipient: { address: 'us@sendwithus.com' },
-    email_data: { first_name: 'Matt' },
+    template_data: { first_name: 'Matt' },
     sender: {
         address: 'company@company.com', // required
         name: 'Company'
@@ -121,7 +122,7 @@ var api = require('sendwithus')('API_KEY');
 api.send({
     template: 'TEMPLATE_ID',
     recipient: { address: 'us@sendwithus.com' },
-    email_data: { first_name: 'Matt' },
+    template_data: { first_name: 'Matt' },
     sender: {
         address: 'company@company.com', // required
         name: 'Company',
@@ -175,6 +176,17 @@ api.send({
     template: TEMPLATE_ID,
     recipient: { address: 'us@sendwithus.com' },
     locale:'en-US'
+}, callback);
+```
+
+### Optional Version
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+api.send({
+    template: TEMPLATE_ID,
+    recipient: { address: 'us@sendwithus.com' },
+    version_name:'Version A'
 }, callback);
 ```
 
@@ -253,7 +265,7 @@ api.dripCampaignDeactivateAll(data, callback);
 
   > response.success;
   True
-  
+
   > response.receipt_id;
   'numeric-receipt-id'
 
