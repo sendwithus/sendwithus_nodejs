@@ -1,4 +1,4 @@
-var API_KEY = 'THIS_IS_A_TEST_API_KEY';
+var API_KEY = 'NODEJS_API_CLIENT_TEST_KEY';
 var INVALID_API_KEY = 'This_IS_A_BAD_API_KEY';
 var EMAIL_ID = 'test_fixture_1';
 var ENABLED_DRIP_ID = 'dc_Rmd7y5oUJ3tn86sPJ8ESCk';
@@ -270,7 +270,7 @@ module.exports.createTemplates = {
   setUp: function (callback) {
     this.sendwithus = sendwithusFactory(API_KEY);
     this.templateData = {
-      name: 'name',
+      name: 'name ' + Date().toString(),
       subject: 'subject',
       html: '<html><head></head><body></body></html>'
     };
