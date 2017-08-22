@@ -135,7 +135,7 @@ module.exports.send = {
   }
 };
 
-module.exports.emails = {
+module.exports.templates = {
   setUp: function (callback) {
     this.sendwithus = sendwithusFactory(API_KEY);
     this.sendwithusBad = sendwithusFactory(INVALID_API_KEY);
@@ -146,13 +146,13 @@ module.exports.emails = {
     callback();
   },
   list: function (test) {
-    this.sendwithus.emails(function (err, result) {
+    this.sendwithus.templates(function (err, result) {
       test.ifError(err);
       test.done();
     });
   },
   listInvalidAPIKey: function (test) {
-    this.sendwithusBad.emails(function (err, result) {
+    this.sendwithusBad.templates(function (err, result) {
       test.ok(err, 'API Key was invalid');
       test.equals(err.statusCode, 403, 'Expected 403 status code');
       test.done();
