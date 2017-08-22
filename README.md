@@ -29,7 +29,7 @@ var callback = function(err, response) {
 
 ```javascript
 var api = require('sendwithus')('API_KEY');
-api.emails(callback);
+api.templates(callback);
 ```
 
 ### Create Template
