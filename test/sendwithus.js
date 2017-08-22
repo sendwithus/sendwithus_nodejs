@@ -101,7 +101,7 @@ module.exports.send = {
 
     this.sendwithus.once('request', function (method, url, headers, body) {
       test.equals(method, 'POST', 'Correct HTTP method');
-      test.equals(url, 'https://api.sendwithus.com/api/v1_0/send', 'Correct HTTP url');
+      test.equals(url, 'https://api.sendwithus.com/api/v1/send', 'Correct HTTP url');
       test.equals(headers['X-SWU-API-KEY'], API_KEY, 'Valid X-SWU-API-KEY');
       test.done();
     });
