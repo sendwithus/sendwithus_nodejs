@@ -300,10 +300,11 @@ module.exports.renderTemplates = {
     setUp: function (callback) {
         this.sendwithus = sendwithusFactory(API_KEY);
         this.data = {
-            name: 'name ' + Date().toString(),
-            subject: 'subject',
-            html: '<html><head></head><body></body></html>',
-            template: "pmaBsiatWCuptZmojWESme"
+            template: TEMPLATE,
+            template_data: {
+                name: 'name ' + Date().toString()
+            },
+            strict: false
         };
 
         callback();
