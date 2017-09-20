@@ -295,3 +295,28 @@ module.exports.createTemplates = {
     });
   }
 };
+
+module.exports.renderTemplates = {
+    setUp: function (callback) {
+        this.sendwithus = sendwithusFactory(API_KEY);
+        this.data = {
+            template: TEMPLATE,
+            template_data: {
+                name: 'name ' + Date().toString()
+            },
+            strict: false
+        };
+
+        callback();
+    },
+    tearDown: function (callback) {
+        callback();
+    },
+    render: function (test) {
+        this.sendwithus.render(this.data, function (err, result) {
+            test.ifError(err);
+            test.ok(result.success, true);
+            test.done();
+        });
+    }
+};

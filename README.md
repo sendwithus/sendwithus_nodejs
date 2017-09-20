@@ -287,6 +287,51 @@ api.dripCampaignDeactivateAll(data, callback);
     403
 ```
 
+# Render
+
+### Render an Email
+
+```javascript
+var api = require('sendwithus')('API_KEY');
+api.render({ template: 'SAMPLE_TEMPLATE_ID', template_data: { name: 'Bob' }, strict: true }, callback);
+```
+### Optional Locale
+```javascript
+var api = require('sendwithus')('API_KEY');
+api.render({ 
+    template: 'SAMPLE_TEMPLATE_ID', 
+    template_data: { name: 'Bob' },
+    locale: 'en-US',
+    strict: true 
+}, callback);
+```
+### Optional Template Version
+```javascript
+var api = require('sendwithus')('API_KEY');
+api.render({ 
+    template: 'SAMPLE_TEMPLATE_ID', 
+    template_data: { name: 'Bob' },
+    version_id: 'SAMPLE_VERSION_ID',
+    strict: true 
+}, callback);
+```
+### Sample Response
+```javascript
+{
+    "success": true,
+    "status": "OK",
+    "template": {
+        "id": "ver_r4nd0ml3tt3rsv15h4l0l",
+        "name": "Template name",
+        "version_name": "Template version name",
+        "locale": "en-US"
+    },
+    "subject": "RENDERED SUBJECT WITH DATA",
+    "html": "RENDERED HTML BODY WITH DATA",
+    "text": "RENDERED TEXT BODY WITH DATA"
+}
+```
+
 ## Events
 
 * `request: function(method, url, headers, body)` - emitted when a request has been sent to Sendwithus
