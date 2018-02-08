@@ -297,26 +297,61 @@ module.exports.createTemplates = {
 };
 
 module.exports.renderTemplates = {
-    setUp: function (callback) {
-        this.sendwithus = sendwithusFactory(API_KEY);
-        this.data = {
-            template: TEMPLATE,
-            template_data: {
-                name: 'name ' + Date().toString()
-            },
-            strict: false
-        };
-
-        callback();
-    },
-    tearDown: function (callback) {
-        callback();
-    },
-    render: function (test) {
-        this.sendwithus.render(this.data, function (err, result) {
-            test.ifError(err);
-            test.ok(result.success, true);
-            test.done();
-        });
-    }
+  setUp: function (callback) {
+    this.sendwithus = sendwithusFactory(API_KEY);
+    this.data = {
+      template: TEMPLATE,
+      template_data: {
+        name: 'name ' + Date().toString()
+      },
+      strict: false
+    };
+    
+    callback();
+  },
+  tearDown: function (callback) {
+    callback();
+  },
+  render: function (test) {
+    this.sendwithus.render(this.data, function (err, result) {
+      test.ifError(err);
+      test.ok(result.success, true);
+      test.done();
+    });
+  }
 };
+
+module.exports.resendLog = {
+  setUp: function (callback) {
+    this.sendwithus = sendwithusFactory(API_KEY);
+    this.data = {
+      email_id: EMAIL_ID,
+      recipient: {
+        address: 'company@company.com'
+      }
+    };
+    callback();
+  },
+  tearDown: function (callback) {
+    callback();
+  },
+  resend: function (test) {
+    var that = this;
+    this.sendwithus.send(this.data, function(err, result) {
+      test.ifError(err);
+      test.ok(result.success, true);
+
+      that.data = {
+        log_id: result.receipt_id
+      }
+
+      that.sendwithus.resend(that.data, function (err, result) {
+        test.ifError(err);
+        test.ok(result.success, true);
+        test.done();
+      });
+
+    });
+  }
+
+}
