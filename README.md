@@ -332,6 +332,14 @@ api.render({
 }
 ```
 
+# Logs
+
+### Resend
+```javascript
+var api = require('sendwithus')('API_KEY');
+api.resend({"log_id": "log_asdf123456qwerty"}, callback);
+```
+
 ## Events
 
 * `request: function(method, url, headers, body)` - emitted when a request has been sent to Sendwithus
