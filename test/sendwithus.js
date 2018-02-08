@@ -306,7 +306,7 @@ module.exports.renderTemplates = {
       },
       strict: false
     };
-    
+
     callback();
   },
   tearDown: function (callback) {
@@ -330,6 +330,7 @@ module.exports.resendLog = {
         address: 'company@company.com'
       }
     };
+
     callback();
   },
   tearDown: function (callback) {
@@ -341,11 +342,11 @@ module.exports.resendLog = {
       test.ifError(err);
       test.ok(result.success, true);
 
-      that.data = {
+      var data = {
         log_id: result.receipt_id
       }
 
-      that.sendwithus.resend(that.data, function (err, result) {
+      that.sendwithus.resend(data, function (err, result) {
         test.ifError(err);
         test.ok(result.success, true);
         test.done();
