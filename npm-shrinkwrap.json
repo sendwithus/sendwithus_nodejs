@@ -1,0 +1,47 @@
+{
+    "name": "sendwithus",
+    "version": "4.2.0",
+    "lockfileVersion": 1,
+    "dependencies": {
+      "restler": {
+        "version": "3.4.0",
+        "from": "restler@>=3.4.0 <3.5.0",
+        "resolved": "https://registry.npmjs.org/restler/-/restler-3.4.0.tgz",
+        "dependencies": {
+          "qs": {
+            "version": "1.2.0",
+            "from": "qs@1.2.0",
+            "resolved": "https://registry.npmjs.org/qs/-/qs-1.2.0.tgz"
+          },
+          "xml2js": {
+            "version": "0.4.0",
+            "from": "xml2js@0.4.0",
+            "resolved": "https://registry.npmjs.org/xml2js/-/xml2js-0.4.0.tgz",
+            "dependencies": {
+              "sax": {
+                "version": "0.5.8",
+                "from": "sax@>=0.5.0 <0.6.0",
+                "resolved": "https://registry.npmjs.org/sax/-/sax-0.5.8.tgz"
+              },
+              "xmlbuilder": {
+                "version": "11.0.1",
+                "from": "xmlbuilder@>=0.4.2",
+                "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-11.0.1.tgz"
+              }
+            }
+          },
+          "yaml": {
+            "version": "0.2.3",
+            "from": "yaml@0.2.3",
+            "resolved": "https://registry.npmjs.org/yaml/-/yaml-0.2.3.tgz"
+          },
+          "iconv-lite": {
+            "version": "0.2.11",
+            "from": "iconv-lite@0.2.11",
+            "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.2.11.tgz"
+          }
+        }
+      }
+    }
+  }
+  

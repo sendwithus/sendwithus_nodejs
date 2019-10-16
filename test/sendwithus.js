@@ -354,5 +354,48 @@ module.exports.resendLog = {
 
     });
   }
-
 }
+
+module.exports.batch = {
+  setUp: function (callback) {
+    this.sendwithus = sendwithusFactory(API_KEY);
+    callback();
+  },
+  tearDown: function (callback) {
+    callback();
+  },
+  success: function (test) {
+    var data = [{
+      "path": "/api/v1/send",
+      "method": "POST",
+      "body": {
+          "template": TEMPLATE,
+          "recipient": {
+              "address": "test+1@mydomain.com"
+          }
+      }
+    }]
+    this.sendwithus.batch(data, function (err, result) {
+      test.ifError(err);
+      test.equals(result[0].status_code, 200);
+      test.done();
+    });
+  },
+  templateNotFound: function (test) {
+      var data = [{
+      "path": "/api/v1/send",
+      "method": "POST",
+      "body": {
+          "template": "tem_doesntexist",
+          "recipient": {
+              "address": "test+2@mydomain.com"
+          }
+      }
+    }]
+    this.sendwithus.batch(data, function (err, result) {
+      test.ifError(err);
+      test.equals(result[0].status_code, 400, 'Template not found');
+      test.done();
+    });
+  }
+};
