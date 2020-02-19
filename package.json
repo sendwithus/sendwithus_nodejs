@@ -5,7 +5,7 @@
   "description": "Sendwithus.com Node.js client",
   "main": "index.js",
   "scripts": {
-    "test": "node ./test/all.js"
+    "test": "nodeunit"
   },
   "license": "Apache-2.0",
   "homepage": "https://github.com/sendwithus/sendwithus_nodejs",
