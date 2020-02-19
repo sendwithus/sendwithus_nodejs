@@ -1,11 +1,11 @@
 {
   "name": "sendwithus",
-  "version": "4.3.0",
+  "version": "4.3.1",
   "author": "Sendwithus <us@sendwithus.com>",
   "description": "Sendwithus.com Node.js client",
   "main": "index.js",
   "scripts": {
-    "test": "nodeunit"
+    "test": "node ./test/all.js"
   },
   "license": "Apache-2.0",
   "homepage": "https://github.com/sendwithus/sendwithus_nodejs",
@@ -29,9 +29,9 @@
     "transactional"
   ],
   "dependencies": {
-    "restler": "~3.4.0"
+    "restler": "github:sendwithus/restler#3.1.1"
   },
   "devDependencies": {
-    "nodeunit": "^0.9.1"
+    "nodeunit": "^0.11.3"
   }
 }
