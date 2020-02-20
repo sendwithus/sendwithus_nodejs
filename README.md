@@ -196,7 +196,7 @@ api.send({
 
 ```javascript
 var api = require('sendwithus')('API_KEY');
-api.customersUpdateOrCreate({ email: 'foo@bar.com', data: { name: 'Bob' } }, callback);
+api.customersUpdateOrCreate({ email: 'foo@bar.com' }, callback);
 ```
 
 ### Delete a Customer
