@@ -395,7 +395,7 @@ npm test
 
 ### Enable Debug Mode
 
-Debug mode prints out the underlying request information as well as the data payload that gets sent to Sendwithus. You will most likely find this information in your logs. To enable it, simply put `debug=true` as a parameter when instantiating the API object. Use the debug mode to compare the data payload getting sent to [Sendwithus' API docs](https://www.sendwithus.com/docs/api "Official Sendwithus API Docs").
+Debug mode prints out the underlying request information as well as the data payload that gets sent to Sendwithus. You will most likely find this information in your logs. To enable it, simply put `debug=true` as a parameter when instantiating the API object. Use the debug mode to compare the data payload getting sent to [Sendwithus' API docs](https://support.sendwithus.com/docs/api "Official Sendwithus API Docs").
 
 ```javascript
 var api = require('sendwithus')('API_KEY', debug=true);
