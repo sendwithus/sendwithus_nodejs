@@ -32,6 +32,6 @@
     "restler": "github:sendwithus/restler#3.1.1"
   },
   "devDependencies": {
-    "nodeunit": "^0.11.3"
+    "nodeunit": "^0.9.1"
   }
 }
