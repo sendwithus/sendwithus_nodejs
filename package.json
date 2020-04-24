@@ -29,7 +29,7 @@
     "transactional"
   ],
   "dependencies": {
-    "restler": "github:sendwithus/restler#3.1.1"
+    "restler": "git://github.com/sendwithus/restler#3.1.1"
   },
   "devDependencies": {
     "nodeunit": "^0.9.1"
