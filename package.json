@@ -1,6 +1,6 @@
 {
   "name": "sendwithus",
-  "version": "4.3.0",
+  "version": "4.3.1",
   "author": "Sendwithus <us@sendwithus.com>",
   "description": "Sendwithus.com Node.js client",
   "main": "index.js",
@@ -29,7 +29,7 @@
     "transactional"
   ],
   "dependencies": {
-    "restler": "~3.4.0"
+    "restler": "git://github.com/sendwithus/restler#3.1.1"
   },
   "devDependencies": {
     "nodeunit": "^0.9.1"
