@@ -1,11 +1,11 @@
 {
   "name": "sendwithus",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "author": "Sendwithus <us@sendwithus.com>",
   "description": "Sendwithus.com Node.js client",
   "main": "index.js",
   "scripts": {
-    "test": "nodeunit"
+    "test": "mocha"
   },
   "license": "Apache-2.0",
   "homepage": "https://github.com/sendwithus/sendwithus_nodejs",
@@ -32,6 +32,6 @@
     "restler": "git://github.com/sendwithus/restler#3.1.1"
   },
   "devDependencies": {
-    "nodeunit": "^0.9.1"
+    "mocha": "^8.3.2"
   }
 }
