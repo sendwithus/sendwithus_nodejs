@@ -1,6 +1,6 @@
 {
   "name": "sendwithus",
-  "version": "4.3.3",
+  "version": "5.0.0",
   "author": "Sendwithus <us@sendwithus.com>",
   "description": "Sendwithus.com Node.js client",
   "main": "index.js",
