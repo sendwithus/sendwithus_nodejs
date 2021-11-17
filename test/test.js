@@ -29,19 +29,24 @@ describe("Send Endpoint", function () {
     };
   });
 
-  it("should send an email successfully with no template data", function () {
+  it("should send an email successfully with no template data", function (done) {
     const data = {
       email_id: EMAIL_ID,
       recipient: this.recipient,
     };
 
     this.sendwithus.send(data, function (err, result) {
-      assert.ifError(err);
-      assert.ok(result.success, "Response was successful");
+      try {
+        assert.ifError(err);
+        assert.ok(result.success, "Response was successful");
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 
-  it("should send an email successfully with template data", function () {
+  it("should send an email successfully with template data", function (done) {
     const data = {
       email_id: EMAIL_ID,
       recipient: this.recipient,
@@ -51,38 +56,53 @@ describe("Send Endpoint", function () {
     };
 
     this.sendwithus.send(data, function (err, result) {
-      assert.ifError(err);
-      assert.ok(result.success, "Response was successful");
+      try {
+        assert.ifError(err);
+        assert.ok(result.success, "Response was successful");
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 
-  it("should throw an error (400) because bad data", function () {
+  it("should throw an error (400) because bad data", function (done) {
     const data = {
       email_id: EMAIL_ID,
       recipient: this.incompleteRecipient,
     };
 
-    this.sendwithus.send(data, function (err, result) {
-      assert.notStrictEqual(result.success, true, "Response was unsuccessful");
-      assert.ok(err, "Error was thrown");
-      assert.strictEqual(err.statusCode, 400, "Expected 400 status code");
+    this.sendwithus.send(data, function (err, response) {
+      try {
+        assert.notStrictEqual(response.success, true, "Response was unsuccessful");
+        assert.ok(err, "Error was thrown");
+        assert.strictEqual(response.status, 400, "Expected 400 status code");
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 
-  it("should throw an error (403) because bad API key", function () {
+  it("should throw an error (403) because bad API key", function (done) {
     const data = {
       email_id: EMAIL_ID,
       recipient: this.incompleteRecipient,
     };
 
-    this.sendwithusBad.send(data, function (err, result) {
-      assert.notStrictEqual(result.success, true, "Response was unsuccessful");
-      assert.ok(err, "Error was thrown");
-      assert.strictEqual(err.statusCode, 403, "Expected 403 status code");
+    this.sendwithusBad.send(data, function (err, response) {
+      try {
+        assert.notStrictEqual(response.success, true, "Response was unsuccessful");
+        assert.ok(err, "Error was thrown");
+        assert.strictEqual(response.status, 403, "Expected 403 status code");
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 
-  it("should create a valid request event", function () {
+  it("should create a valid request event", function (done) {
     const data = {
       email_id: EMAIL_ID,
       recipient: this.recipient,
@@ -106,11 +126,16 @@ describe("Send Endpoint", function () {
     });
 
     this.sendwithus.send(data, function (err, result) {
-      assert.ifError(err);
-      assert.ok(result.success, "Response was successful");
+      try {
+        assert.ifError(err);
+        assert.ok(result.success, "Response was successful");
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
-  it("should return with a valid response event", function () {
+  it("should return with a valid response event", function (done) {
     const data = {
       email_id: EMAIL_ID,
       recipient: this.recipient,
@@ -126,13 +151,20 @@ describe("Send Endpoint", function () {
     });
 
     this.sendwithus.send(data, function (err, result) {
-      assert.ifError(err);
-      assert.ok(result.success, "Response was successful");
+      try {
+        assert.ifError(err);
+        assert.ok(result.success, "Response was successful");
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 });
 
 describe("Templates Endpoint", function () {
+  this.timeout(15000); // The templates endpoint can be real slow.
+
   beforeEach(function () {
     this.sendwithus = new sendwithusFactory(API_KEY);
     this.sendwithusBad = new sendwithusFactory(INVALID_API_KEY);
@@ -144,33 +176,54 @@ describe("Templates Endpoint", function () {
     };
   });
 
-  it("should list templates successfully", function () {
+  it("should list templates successfully", function (done) {
     this.sendwithus.templates(function (err, result) {
-      assert.ifError(err);
-      assert.ok(result);
+      try {
+        assert.ifError(err);
+        assert.ok(result);
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 
-  it("should throw an error (403) because bad API key", function () {
-    this.sendwithusBad.templates(function (err, result) {
-      assert.strictEqual(err.statusCode, 403);
+  it("should throw an error (403) because bad API key", function (done) {
+    this.sendwithusBad.templates(function (err, response) {
+      try {
+        assert.ok(err, "Error was thrown");
+        assert.strictEqual(response.status, 403);
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 
-  it("should create a new template successfully", function () {
+  it("should create a new template successfully", function (done) {
     this.sendwithus.createTemplate(this.templateData, function (err, result) {
-      assert.ifError(err);
-      assert.ok(result.name, "Response was successful");
+      try {
+        assert.ifError(err);
+        assert.ok(result.name, "Response was successful");
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 
-  it("should create a new template version successfully", function () {
+  it("should create a new template version successfully", function (done) {
     this.sendwithus.createTemplateVersion(
       TEMPLATE,
       this.templateData,
       function (err, result) {
-        assert.ifError(err);
-        assert.ok(result.name, "Response was successful");
+        try {
+          assert.ifError(err);
+          assert.ok(result.name, "Response was successful");
+          done()
+        } catch (e) {
+          done(e)
+        }
       }
     );
   });
@@ -191,17 +244,22 @@ describe("Customers Endpoint", function () {
     };
   });
 
-  it("should create a customer successfully", function () {
+  it("should create a customer successfully", function (done) {
     this.sendwithus.customersUpdateOrCreate(
       this.customerData,
       function (err, result) {
-        assert.ifError(err);
-        assert.ok(result.success, "Response was successful");
+        try {
+          assert.ifError(err);
+          assert.ok(result.success, "Response was successful");
+          done()
+        } catch (e) {
+          done(e)
+        }
       }
     );
   });
 
-  it("should delete a customer successfully", function () {
+  it("should delete a customer successfully", function (done) {
     const that = this;
     // Make sure customer exists
     this.sendwithus.customersUpdateOrCreate(
@@ -214,8 +272,13 @@ describe("Customers Endpoint", function () {
         that.sendwithus.customersDelete(
           that.customerData.email,
           function (err, result) {
-            assert.ifError(err);
-            assert.ok(result.success, "Response was successful");
+            try {
+              assert.ifError(err);
+              assert.ok(result.success, "Response was successful");
+              done()
+            } catch (e) {
+              done(e)
+            }
           }
         );
       }
@@ -231,73 +294,105 @@ describe("Drip Campaigns Endpoint", function () {
     };
   });
 
-  it("should list drip campaigns successfully", function () {
+  it("should list drip campaigns successfully", function (done) {
     this.sendwithus.dripCampaignList(function (err, result) {
-      assert.ifError(err);
-      assert.ok(result);
+      try {
+        assert.ifError(err);
+        assert.ok(result);
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 
-  it("should activate a recipient successfully", function () {
+  it("should activate a recipient successfully", function (done) {
     this.sendwithus.dripCampaignActivate(
       ENABLED_DRIP_ID,
       this.recipientData,
       function (err, result) {
-        assert.ifError(err);
-        assert.ok(result.success, "Response was successful");
+        try {
+          assert.ifError(err);
+          assert.ok(result.success, "Response was successful");
+          done()
+        } catch (e) {
+          done(e)
+        }
       }
     );
   });
 
-  it("should return an error (400) when activating on an inactive drip campaign", function () {
+  it("should return an error (400) when activating on an inactive drip campaign", function (done) {
     this.sendwithus.dripCampaignActivate(
       DISABLED_DRIP_ID,
       this.recipientData,
-      function (err, result) {
-        assert.ok(err, "Error was thrown");
-        assert.strictEqual(err.statusCode, 400, "Expected 400 status code");
-        assert.notStrictEqual(
-          result.success,
-          true,
-          "Response was unsuccessful"
-        );
+      function (err, response) {
+        try {
+          assert.ok(err, "Error was thrown");
+          assert.strictEqual(response.status, 400, "Expected 400 status code");
+          assert.notStrictEqual(
+            response.success,
+            true,
+            "Response was unsuccessful"
+          );
+          done()
+        } catch (e) {
+          done(e)
+        }
       }
     );
   });
 
-  it("should return an error (400) when activating on a drip campaign that does not exist", function () {
+  it("should return an error (400) when activating on a drip campaign that does not exist", function (done) {
     this.sendwithus.dripCampaignActivate(
       FALSE_DRIP_ID,
       this.recipientData,
-      function (err, result) {
-        assert.ok(err, "Error was thrown");
-        assert.strictEqual(err.statusCode, 400, "Expected 400 status code");
-        assert.notStrictEqual(
-          result.success,
-          true,
-          "Response was unsuccessful"
-        );
+      function (err, response) {
+        try {
+          assert.ok(err, "Error was thrown");
+          assert.strictEqual(response.status, 400, "Expected 400 status code");
+          assert.notStrictEqual(
+            response.success,
+            true,
+            "Response was unsuccessful"
+          );
+          done()
+        } catch (e) {
+          done(e)
+        }
       }
     );
   });
 
-  it("should deactivate a recipient successfully", function () {
+  it.skip("should deactivate a recipient successfully", function (done) {
+    // SendWithUs currently returns a 405 METHOD NOT ALLOWED error for this endpoint.
     this.sendwithus.dripCampaignDeactivate(
       ENABLED_DRIP_ID,
       this.recipientData,
       function (err, result) {
-        assert.ifError(err);
-        assert.ok(result.success, "Response was successful");
+        console.log(err)
+        try {
+          assert.ifError(err);
+          assert.ok(result.success, "Response was successful");
+          done()
+        } catch (e) {
+          done(e)
+        }
       }
     );
   });
 
-  it("should deactivate all drip campaigns for recipient successfully", function () {
+  it("should deactivate all drip campaigns for recipient successfully", function (done) {
     this.sendwithus.dripCampaignDeactivateAll(
       this.recipientData,
       function (err, result) {
-        assert.ifError(err);
-        assert.ok(result.success, "Response was successful");
+        try {
+          assert.ifError(err);
+          assert.ok(result.success, "Response was successful");
+          done()
+        } catch (e) {
+          done(e)
+        }
       }
     );
   });
@@ -315,10 +410,15 @@ describe("Render Endpoint", function () {
     };
   });
 
-  it("should render a template successfully", function () {
+  it("should render a template successfully", function (done) {
     this.sendwithus.render(this.data, function (err, result) {
-      assert.ifError(err);
-      assert.ok(result.success, true);
+      try {
+        assert.ifError(err);
+        assert.ok(result.success, true);
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 });
@@ -334,7 +434,7 @@ describe("Resend Endpoint", function () {
     };
   });
 
-  it("should resend an email successfully", function () {
+  it("should resend an email successfully", function (done) {
     const that = this;
     // Make sure the log exists
     this.sendwithus.send(this.data, function (err, result) {
@@ -346,8 +446,13 @@ describe("Resend Endpoint", function () {
       };
 
       that.sendwithus.resend(data, function (err, result) {
-        assert.ifError(err);
-        assert.ok(result.success, true);
+        try {
+          assert.ifError(err);
+          assert.ok(result.success, true);
+          done()
+        } catch (e) {
+          done(e)
+        }
       });
     });
   });
@@ -382,17 +487,27 @@ describe("Batch Endpoint", function () {
     ];
   });
 
-  it("should create a batch request successfully", function () {
+  it("should create a batch request successfully", function (done) {
     this.sendwithus.batch(this.data, function (err, result) {
-      assert.ifError(err);
-      assert.strictEqual(result[0].status_code, 200);
+      try {
+        assert.ifError(err);
+        assert.strictEqual(result[0].status_code, 200);
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 
-  it("should return an error (400) template not found", function () {
+  it("should return an error (400) template not found", function (done) {
     this.sendwithus.batch(this.badData, function (err, result) {
-      assert.ifError(err);
-      assert.strictEqual(result[0].status_code, 400, "Template not found");
+      try {
+        assert.ifError(err);
+        assert.strictEqual(result[0].status_code, 400, "Template not found");
+        done()
+      } catch (e) {
+        done(e)
+      }
     });
   });
 });
