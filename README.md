@@ -1,7 +1,7 @@
 sendwithus node-client
 ========================
 
-[![Build Status](https://travis-ci.org/sendwithus/sendwithus_nodejs.png)](https://travis-ci.org/sendwithus/sendwithus_nodejs)
+[![Build Status](https://app.travis-ci.com/sendwithus/sendwithus_nodejs.svg?branch=master)](https://app.travis-ci.com/github/sendwithus/sendwithus_nodejs)
 
 ## Installation
 
