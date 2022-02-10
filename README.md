@@ -14,9 +14,9 @@ npm install sendwithus
 All callbacks accept `err` and `response`:
 
 ```javascript
-var callback = function(err, response) {
+const callback = function(err, response) {
     if (err) {
-        console.log(err.statusCode, response);
+        console.log({message: err.message,  status: response.status, statusText: response.statusText});
     } else {
         console.log(response);
     }
