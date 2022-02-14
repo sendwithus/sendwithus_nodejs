@@ -9,6 +9,7 @@ const TEMPLATE = "pmaBsiatWCuptZmojWESme";
 const sendwithusFactory = require("../lib/sendwithus");
 const assert = require("assert").strict;
 
+
 describe("Send Endpoint", function () {
   beforeEach(function () {
     this.sendwithus = new sendwithusFactory(API_KEY);
@@ -28,6 +29,32 @@ describe("Send Endpoint", function () {
       address: "sender@sender.com",
     };
   });
+
+  it("Handle when a conntection error is thrown", function (done) { 
+    const data = () => {
+     return new Error('ETIMEDOUT')
+     return { // give invalid object to get error response
+       email_id: EMAIL_ID,
+       recipient: this.recipient,
+       email_data: {
+         hello: "World!",
+       },
+     };
+    }
+
+ this.sendwithus.send(data, function (err, result) {
+     try {
+       if (err.mesage === 'ETIMEDOUT') {
+         new Error('ETIMEDOUT')
+       }
+       done()
+     } catch (e) {
+       console.info(err, result)
+       assert.ok(e.message, 'ETIMEDOUT');
+       done(e)
+     }
+   });
+});
 
   it("should send an email successfully with no template data", function (done) {
     const data = {
