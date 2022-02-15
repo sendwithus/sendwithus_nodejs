@@ -451,6 +451,7 @@ describe("Render Endpoint", function () {
 });
 
 describe("Resend Endpoint", function () {
+  this.timeout(10000); // The resend endpoint can be real slow.
   beforeEach(function () {
     this.sendwithus = sendwithusFactory(API_KEY);
     this.data = {
