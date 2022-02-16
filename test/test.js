@@ -30,7 +30,7 @@ describe("Send Endpoint", function () {
     };
   });
 
-  it("Handle when a conntection error is thrown", function (done) { 
+  it("Handle when a connection error is thrown", function (done) { 
     const data = () => {
      return new Error('ETIMEDOUT')
      return { // give invalid object to get error response
