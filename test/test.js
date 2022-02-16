@@ -10,6 +10,7 @@ const sendwithusFactory = require("../lib/sendwithus");
 const assert = require("assert").strict;
 
 describe("Send Endpoint", function () {
+
   beforeEach(function () {
     this.sendwithus = new sendwithusFactory(API_KEY);
     this.sendwithusBad = new sendwithusFactory(INVALID_API_KEY);
@@ -27,6 +28,32 @@ describe("Send Endpoint", function () {
       name: "Sender",
       address: "sender@sender.com",
     };
+  });
+
+  it("Handle when a connection error is thrown", function (done) { 
+    const data = () => {
+     return new Error('ETIMEDOUT')
+     return { // give invalid object to get error response
+       email_id: EMAIL_ID,
+       recipient: this.recipient,
+       email_data: {
+         hello: "World!",
+       },
+     };
+    }
+
+  this.sendwithus.send(data, function (err, result) {
+      try {
+        if (err.mesage === 'ETIMEDOUT') {
+          throw new Error('ETIMEDOUT')
+        } else if (err.code === 'ETIMEDOUT') { throw new Error('ETIMEDOUT') }
+        done()
+      } catch (e) {
+        console.info(err, result)
+        assert.ok(e.message, 'ETIMEDOUT');
+        done(e)
+      }
+    });
   });
 
   it("should send an email successfully with no template data", function (done) {
@@ -424,6 +451,7 @@ describe("Render Endpoint", function () {
 });
 
 describe("Resend Endpoint", function () {
+  this.timeout(10000); // The resend endpoint can be real slow.
   beforeEach(function () {
     this.sendwithus = sendwithusFactory(API_KEY);
     this.data = {
