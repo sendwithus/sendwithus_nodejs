@@ -472,16 +472,18 @@ describe("Resend Endpoint", function () {
       const data = {
         log_id: result.receipt_id,
       };
-
+      // ensure the send fuction has executed
+      setTimeout(
       that.sendwithus.resend(data, function (err, result) {
         try {
+
           assert.ifError(err);
           assert.ok(result.success, true);
           done()
         } catch (e) {
           done(e)
         }
-      });
+      }), 500);
     });
   });
 });
