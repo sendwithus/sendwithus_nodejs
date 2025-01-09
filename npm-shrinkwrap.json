@@ -1,12 +1,12 @@
 {
   "name": "sendwithus",
-  "version": "6.0.1",
+  "version": "6.0.3",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
       "name": "sendwithus",
-      "version": "6.0.1",
+      "version": "6.0.3",
       "license": "Apache-2.0",
       "dependencies": {
         "node-fetch": "^2.6.7"
