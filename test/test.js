@@ -316,7 +316,12 @@ describe("Customers Endpoint", function () {
 describe("Drip Campaigns Endpoint", function () {
   beforeEach(function () {
     this.sendwithus = sendwithusFactory(API_KEY);
-    this.recipientData = {
+    this.recipientActivateData = {
+      recipient: {
+        address: "customer@example.com",
+      }
+    };
+    this.recipientDeactivateData = {
       recipient_address: "customer@example.com",
     };
   });
@@ -336,7 +341,7 @@ describe("Drip Campaigns Endpoint", function () {
   it("should activate a recipient successfully", function (done) {
     this.sendwithus.dripCampaignActivate(
       ENABLED_DRIP_ID,
-      this.recipientData,
+      this.recipientActivateData,
       function (err, result) {
         try {
           assert.ifError(err);
@@ -352,7 +357,7 @@ describe("Drip Campaigns Endpoint", function () {
   it("should return an error (400) when activating on an inactive drip campaign", function (done) {
     this.sendwithus.dripCampaignActivate(
       DISABLED_DRIP_ID,
-      this.recipientData,
+      this.recipientActivateData,
       function (err, response) {
         try {
           assert.ok(err, "Error was thrown");
@@ -373,7 +378,7 @@ describe("Drip Campaigns Endpoint", function () {
   it("should return an error (400) when activating on a drip campaign that does not exist", function (done) {
     this.sendwithus.dripCampaignActivate(
       FALSE_DRIP_ID,
-      this.recipientData,
+      this.recipientActivateData,
       function (err, response) {
         try {
           assert.ok(err, "Error was thrown");
@@ -391,13 +396,11 @@ describe("Drip Campaigns Endpoint", function () {
     );
   });
 
-  it.skip("should deactivate a recipient successfully", function (done) {
-    // SendWithUs currently returns a 405 METHOD NOT ALLOWED error for this endpoint.
+  it("should deactivate a recipient successfully", function (done) {
     this.sendwithus.dripCampaignDeactivate(
       ENABLED_DRIP_ID,
-      this.recipientData,
+      this.recipientDeactivateData,
       function (err, result) {
-        console.log(err)
         try {
           assert.ifError(err);
           assert.ok(result.success, "Response was successful");
@@ -411,7 +414,7 @@ describe("Drip Campaigns Endpoint", function () {
 
   it("should deactivate all drip campaigns for recipient successfully", function (done) {
     this.sendwithus.dripCampaignDeactivateAll(
-      this.recipientData,
+      this.recipientDeactivateData,
       function (err, result) {
         try {
           assert.ifError(err);
